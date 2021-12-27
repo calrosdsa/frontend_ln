@@ -68,3 +68,47 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+import {useEffect, useState,useMemo } from 'react'
+import Pagination from '../../utils/Pagination'
+import data from './data.json'
+import React from 'react'
+
+
+let PageSize = 1;
+function NovelsChapter({post}) {
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    const currentTableData = useMemo(() => {
+      const firstPageIndex = (currentPage - 1) * PageSize;
+      const lastPageIndex = firstPageIndex + PageSize;
+      return post.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+      return (
+          <>
+          <div className="bg-blue-400 h-screen mt-20 flex flex-col mx-auto">
+          {currentTableData.map(item => {
+              return (
+                <tr>
+                  <td>{item.title}</td>
+                  <td className="whitespace-pre-line">{item.chapter}</td>
+                </tr>
+              );
+            })}
+            
+  
+          <Pagination
+          className=' flex justify-center '
+          currentPage={currentPage}
+          totalCount={post.length}
+          pageSize={PageSize}
+          onPageChange={page => setCurrentPage(page)}
+          />
+          </div>
+              </>
+      )}
+
+export default NovelsChapter

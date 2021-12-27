@@ -1,0 +1,22 @@
+diff --git a/node_modules/react-rating-stars-component/src/react-stars.js b/node_modules/react-rating-stars-component/src/react-stars.js
+index 3a421fe..c566956 100644
+--- a/node_modules/react-rating-stars-component/src/react-stars.js
++++ b/node_modules/react-rating-stars-component/src/react-stars.js
+@@ -58,7 +58,7 @@ function ReactStars(props) {
+         createUniqueness();
+         setIsUsingIcons(iconsUsed(props));
+         setHalfStarAt(Math.floor(props.value));
+-        setHalfStarHidden(props.isHalf && props.value % 1 < 0.5);
++        setHalfStarHidden(props.isHalf && props.value % 1 < 0.1);
+     }, []);
+ 
+     function validateInitialValue(value, count) {
+@@ -156,7 +156,7 @@ function ReactStars(props) {
+             const isAtHalf = moreThanHalf(event);
+             setHalfStarHidden(isAtHalf);
+             if (isAtHalf) index += 1;
+-            value = isAtHalf ? index : index + 0.5;
++            value = isAtHalf ? index : index + 0.1;
+             setHalfStarAt(index);
+         }
+         else {
