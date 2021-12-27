@@ -1,4 +1,4 @@
-import { getChapters,getFilter } from "../../actions/post";
+import { getFilter } from "../../actions/post";
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
 import ReactStars from "react-rating-stars-component";
@@ -11,17 +11,11 @@ import Ordering from "./Ordering";
 import Category from "./Category";
 import Status from "./Status";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(1)
-  }
-}));
 
-const NovelsChapterz = ({ history, location,match }) => {
+const NovelsChapterz = ({ location }) => {
   useEffect(()=>{
     window.scrollTo(0,0)
   },[])
-  const status = useSelector(state => state.filter.status);
   const novels = useSelector(state => state.filter.novels);
 
   

@@ -10,7 +10,6 @@ export default function foo (state =initialState, action) {
     switch (action.type) {
         case SET_NOTIFICATIOS:
             const item =  payload
-            const existItem = state.notifications.find(x => x.product === item.product)
 
                 return {
                     ...state,
