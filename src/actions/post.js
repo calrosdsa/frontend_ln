@@ -23,7 +23,7 @@ export const getFilter = (query) => async (dispatch) => {
   //   setAuthToken(localSorage.token); // This needs to be included in GET requests or django will reject it!!!
   // }
   try {
-    const res = await axios.get(`/novels/filter/${query}`);
+    const res = await axios.get(`http://127.0.0.1:8000/novels/filter/${query}`);
 
     dispatch({
       type: GET_FILTER,
