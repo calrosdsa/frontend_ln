@@ -11,7 +11,7 @@ import { setWebsockets } from '../../actions/webSockets';
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) => {
   const [open, setOpen] = useState(false);
-  const socketUrl = 'ws://127.0.0.1:8000/ws/notification/broadcast/'
+  const [socketUrl, setSocketUrl] = useState('ws://127.0.0.1:8000/ws/notification/broadcast/');
   const [messageHistory, setMessageHistory] = useState([]);
 
   const dispatch = useDispatch()

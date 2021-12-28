@@ -4,17 +4,20 @@ import moment from 'moment'
 import ReactStars from "react-rating-stars-component";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import PaginationFilter from "./PaginationFilter";
 import Ordering from "./Ordering";
 import Category from "./Category";
 import Status from "./Status";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(1)
+  }
+}));
 
 const NovelsChapterz = ({ location }) => {
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  },[])
   const novels = useSelector(state => state.filter.novels);
 
   
@@ -25,7 +28,7 @@ const NovelsChapterz = ({ location }) => {
   
   useEffect(()=>(
      dispatch(getFilter(location.search))
-     ),[dispatch,location.search])
+     ),[getFilter,location.search])
      
   return (
     <div className="bg-gray-900 h-full pb-96 pt-16">
