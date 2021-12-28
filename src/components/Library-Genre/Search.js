@@ -1,9 +1,8 @@
-import React,{useMemo,useState,useRef,useEffect} from 'react'
+import React,{useMemo,useState,useRef} from 'react'
 import {XIcon} from '@heroicons/react/solid'
 import useSWR from 'swr'
 import { fetcher } from '../novel/Review'
 import Autocomplete from './Autocomplete'
-import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import NovelItem from '../posts/NovelItem'
 function Search() {
@@ -30,12 +29,7 @@ function Search() {
   
 
 
-    const scrollIntoView = position => {
-        searchResultRef.current.parentNode.scrollTo({
-            top: position,
-            behavior: "smooth"
-        });
-    };
+    
 
     const suggestions = useMemo(()=>{
         if (!wordEnter)

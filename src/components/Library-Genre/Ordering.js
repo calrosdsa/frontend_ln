@@ -1,12 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import { formatDistanceToNow } from 'date-fns'
-import moment from 'moment'
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { appendQuery,removeQuery } from "../../utils/utils";
+import { appendQuery } from "../../utils/utils";
 
 const useStyles = makeStyles(theme => ({
   paper: {

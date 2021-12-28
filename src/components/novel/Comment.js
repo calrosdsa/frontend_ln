@@ -1,12 +1,11 @@
-import React,{useEffect,Fragment,useState} from "react";
+import React,{Fragment,useState} from "react";
 import axios from "axios";
 import moment from 'moment'
 import { formatDistanceToNow } from "date-fns";
 import useSWR from 'swr'
-import CommentItem from "./CommentItem";
 import { fetcher } from './Review'
 import ReplyComment from "./ReplyComment";
-const Comment =({match,auth})=>{
+const Comment =({match})=>{
   
   const [show,setShow] = useState(false)
   const {data, mutate} = useSWR(`/novels/comment/${match.params.id}/`,fetcher)

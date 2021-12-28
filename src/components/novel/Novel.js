@@ -23,7 +23,7 @@ import ReactStars from "react-rating-stars-component";
         }
     }
 
-    const {data,mutate,trigger}  = useSWR(`/novels/detail/${match.params.slug}/`, fetcher )
+    const {data,mutate}  = useSWR(`/novels/detail/${match.params.slug}/`, fetcher )
      
     const [open,setOpen]=useState(false)
     const [added,setAdded]= useState(false)

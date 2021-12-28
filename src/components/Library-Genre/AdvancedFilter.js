@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { fetcher } from '../novel/Review'
 import {XIcon} from '@heroicons/react/solid'
 import useSWR from 'swr'
-import { removeQuery } from '../../utils/utils'
 import { useHistory } from 'react-router-dom'
 
 function AdvancedFilter({location}) {

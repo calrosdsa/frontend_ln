@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,6 @@ const CommentItem = ({
   show,
   deleteComment,
 }) => {
-  const [liked, setLiked] = useState(false);
 
   const [open,setOpen]= useState(false)
   

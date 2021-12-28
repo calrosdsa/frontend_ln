@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
-import {useEffect,Fragment,useState} from 'react'
 import useSWR from 'swr'
+import React from 'react'
 import { fetcher } from './Review'
 const Chapter =({match})=>{
-  const {data,trigger,mutate}  = useSWR(`/novels/single_chapter/${match.params.slug}/`, fetcher )
+  const {data}  = useSWR(`/novels/single_chapter/${match.params.slug}/`, fetcher )
     
 
 

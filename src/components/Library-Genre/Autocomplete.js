@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {LocationMarkerIcon} from '@heroicons/react/solid'
 function Autocomplete({title,cover,onSelectItem,isHighLighned,rank,id,slug,chapters,average}) {
     return (
         <div>
