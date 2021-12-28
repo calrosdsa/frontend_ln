@@ -232,8 +232,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
                             className='text-indigo-500 cursor-pointer'
                             to={`/profile/${user.username}`}
                           >
-                            {user.username.charAt(0).toUpperCase() +
-                              user.username.slice(1)}
+                            {user.username}
                           </Link>
                         )}
                       </Dialog.Title>
