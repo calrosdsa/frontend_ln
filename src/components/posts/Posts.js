@@ -35,7 +35,8 @@ const Posts = ({ }) => {
       <Link as="fetch" crossorigin="anonymous" rel='preload' to ='/genre/?ordering=-created'
        className='text-md font-medium text-indigo-400'>View More</Link>
       </div>
-      <div className='grid grid-cols-3  sm:grid-cols-4  lg:grid-cols-5   xl:grid-cols-6 md:gap-2 gap-1 rounded-xl  pb-10 pl-1 place-items-center '>
+      <div className='grid grid-cols-3 sm:grid-cols-4 gap-1  lg:grid-cols-5   xl:grid-cols-6  rounded-xl 
+       pb-10 pl-1 place-items-center '>
          
         {data?.posts.map((post) => (
             <NovelItem key={post.id} post={post}/>
@@ -48,27 +49,27 @@ const Posts = ({ }) => {
 
       <div className="bg-gray-800 relative pt-2">
      <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>Most Read</h1>
-       <div className='grid grid-cols-2 lg:flex lg:flex-col gap-x-2 sm:gap-x-6  lg:gap-x-0'>
+       <div className='grid grid-cols-2  w-full lg:flex lg:flex-col gap-x-1 sm:gap-x-6  lg:gap-x-0'>
      {data?.popular.map((item)=>(
              <Link  to={`/novel/${item.slug}`}>
 
-         <div key={item.id} className='flex flex-row my'>
-         <div className=' pr-2'>
-             <img className='w-14 h-20  rounded-lg' src={item.cover} alt="" />
+         <div key={item.id} className='grid grid-cols-4 my'>
+         <div className='pr-1 col-start-1 place-self-end'>
+             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
-         <div>
-       <h1 className='text-sm sm:text-sm  truncate w-40 sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
+         <div className='col-start-2 col-span-3'>
+       <h1 className='text-xs sm:text-sm  truncate  sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
          {item.title}
        </h1>
        <div className='flex items-center space-x-2'>
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
   <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
   <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
        </svg>
-       <h1 className='text-gray-400 text-sm'>{numFormatter(item.novel_views)} (Monthly)</h1>
+       <h1 className='text-gray-400 text-xs sm:text-sm'>{numFormatter(item.novel_views)} (Monthly)</h1>
        </div>
-       <div className='flex items-center space-x-2 text-gray-400 text-sm my'>
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+       <div className='flex items-center space-x-2 text-gray-400 text-xs sm:text-sm my'>
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
   <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
        </svg>
        <h1>{item.chapter_count}</h1>
@@ -83,28 +84,28 @@ const Posts = ({ }) => {
 
 
     <div className="bg-gray-800 relative pt-2">
-        <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>Most Read</h1>
+        <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>Trends</h1>
        <div className='grid grid-cols-2 lg:flex lg:flex-col gap-x-2 sm:gap-x-6  lg:gap-x-0'>
      {data?.trends.map((item)=>(
              <Link to={`/novel/${item.slug}`}>
 
 
-         <div key={item.id} className='flex flex-row my'>
-         <div className=' pr-2'>
-             <img className='w-14 h-20  rounded-lg' src={item.cover} alt="" />
+         <div key={item.id} className='grid grid-cols-4 my'>
+         <div className='pr-1 col-start-1 place-self-end'>
+             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
-         <div>
-       <h1 className='text-sm sm:text-sm  truncate w-40 sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
+         <div className='col-start-2 col-span-3 mt-2 sm:mt-1'>
+       <h1 className='text-xs sm:text-sm  truncate  text-gray-400   font-bold '>
          {item.title}
        </h1>
        <div className='flex items-center space-x-2 text-sm text-gray-400'>
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="currentColor">
   <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
         </svg>
-         <h1>{item.commentss} Comments</h1>
+         <h1 className='text-xs sm:text-sm'>{item.commentss} Comments</h1>
        </div>
-       <div className='flex items-center space-x-2 text-sm text-gray-400'>
-       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+       <div className='flex items-center space-x-2 text-xs sm:text-sm text-gray-400'>
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
         </svg>
          <h1>{item.reviews} Reviews</h1>
@@ -124,12 +125,12 @@ const Posts = ({ }) => {
      {data?.rated.map((item)=>(
              <Link to={`/novel/${item.slug}`}>
 
-         <div key={item.id} className='flex flex-row my'>
-         <div className=' pr-2'>
-             <img className='w-14 h-20  rounded-lg' src={item.cover} alt="" />
+         <div key={item.id} className='grid grid-cols-4 my'>
+         <div className=' pr-1 col-start-1 place-self-end'>
+             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
-         <div>
-       <h1 className='text-sm sm:text-sm  truncate w-40 sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
+         <div className='col-start-2 col-span-3'>
+       <h1 className='text-xs sm:text-sm  truncate text-gray-400   font-bold '>
          {item.title}
        </h1>
        <div className='flex items-center space-x-2 -my-1'>
@@ -140,13 +141,13 @@ const Posts = ({ }) => {
             edit={false}
             size={20}
             />
-       <h1 className='text-gray-300'>{item.average}</h1>
+       <h1 className='text-gray-300 text-xs sm:text-sm '>{item.average}</h1>
             </div>
-            <div className='flex space-x-2 items-center'>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+            <div className='flex space-x-2 text-xs sm:text-sm items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
   <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
-       <h1 className='text-sm text-gray-400'>{item.reviews} Reviews</h1>
+       <h1 className=' text-gray-400'>{item.reviews} Reviews</h1>
             </div>
          </div>
      </div>

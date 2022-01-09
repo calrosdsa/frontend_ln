@@ -174,12 +174,12 @@ mutate({...data})
          </div>
          <div className="bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
            <h1 className="lg:ml-5">Views</h1>
-           <div className="lg:ml-5 flex items-center">
+           <div className="lg:ml-5 flex space-x-3 items-center">
            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
            </svg>
-           <h1 className="text-2xl font-bold lg:ml-2" >{numFormatter(data?.novel_views)}</h1>
+           <h1 className="text-2xl font-bold lg:ml-3" >{numFormatter(data?.novel_views)}</h1>
          </div>
            </div>
 
@@ -261,11 +261,11 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
          
          </div>
            </div>
-           <div className="lg:flex pt-56  sm:pt-40   lg:pt-1 lg:w-4/5  lg:mx-auto  space-y-1 lg:space-y-0
-            lg:justify-between lg:space-x-14 
-           grid grid-rows-2 mx-auto px-2 sm:px-6 ">
+           <div className="md:flex pt-44 mt-2  sm:pt-40   lg:pt-1 lg:w-4/5  lg:mx-auto  space-y-5 md:space-y-0
+            lg:justify-between md:space-x-6 lg:space-x-14 
+           mx-auto px-1 sm:px-6 ">
 
-             <div className="bg-gray-300 p-1   mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
+             <div className="bg-gray-300 p mt-2  mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
              <Link to={(`/chapters/${encodeURIComponent(data?.slug)}`)}>
                <h1 className="text-3xl font-medium text-gray-600">NOVEL CHAPTERS</h1>
                <h4 className="text-gray-500 xl:text-lg mt-1">Chapter {data?.chapters} Clousure</h4>
@@ -283,7 +283,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
                 </svg>
                    </Link>
                </div>
-               <div className="bg-green-100 p-1 mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
+               <div className="bg-green-100 p mt-2 mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
                <Link to={(`/reviews/${encodeURIComponent(data?.slug)}`)}>
                <h1 className="text-3xl font-medium text-gray-600">USER REVIEWS</h1>
                <h4 className="text-gray-500 xl:text-lg mt-1">Reviews from {data?.reviews} readers</h4>
@@ -303,7 +303,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            
            <div className="lg:w-4/5 lg:mx-auto">
            <h1 className="text-3xl border-b-2 p border-gray-500 my-4 font-semibold text-gray-500">Sumary</h1>
-           <h1 className=" whitespace-pre-line text-base tracking-wider mx-10">{data?.sumary}</h1>
+           <h1 className=" whitespace-pre-line text-base tracking-wider mx-5">{data?.sumary}</h1>
            </div>
            <div className="mt-10 lg:w-4/5 lg:mx-auto">
            <h1 className="text-3xl border-b-2 p border-gray-500 my-4 font-semibold text-gray-500">Tags</h1>
@@ -320,7 +320,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
        
        <div className={`flex flex-col relative  mt-24 gap-y-3 lg:w-4/5 lg:mx-auto  ${open&& ''} `}>
            <div className=" justify-between items-center flex w-full sm:w-5/6 mx-auto">
-         <h2 className='text-3xl  font-bold'>User Comments</h2>
+         <h2 className='text-base sm:text-xl lg:text-3xl  font-bold'>User Comments</h2>
          <button onClick={()=>setOpen(!open)}
           className=" bg-gradient-to-l from-blue-300  to-blue-400 text-base font-semibold hover:scale-105
            transform hover:transition-all hover:duration-700 text-gray-100 p-1 rounded-lg ">
@@ -328,7 +328,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
                    
            </div>
 
-        <p className="w-full sm:w-5/6 mx-auto bg-gray-800 p-1 border-2 border-gray-700 font-medium text-lg">It is used only as a discussion area. If you want to evaluate and score, use the "Write Review" field.
+        <p className="w-full sm:w-5/6 mx-auto bg-gray-800 p-1 border-2 border-gray-700 font-medium text-sm sm:text-base">It is used only as a discussion area. If you want to evaluate and score, use the "Write Review" field.
 Posting insults, swearing or links in the comments is strictly prohibited.
 The responsibility for the content in the comments belongs entirely to the user and certainly the LNP platform cannot be held responsible.</p>
          {data?.comments.map((comment) => (
