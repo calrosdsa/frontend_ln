@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { Fragment, useEffect,useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Footer from '../layout/Footer';
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
@@ -23,17 +22,7 @@ const Posts = ({ }) => {
 
   const {data , isLoading}  = useSWR(`/novels/ranking/`, fetcher )
    if(isLoading) return <ReactLoading/>
-  const [repo,setRepo] = useState([])
-   const getData = ()=>{
-     axios.get('https://light-nvls.herokuapp.com/novels/ranking/').then((response)=>{
-       console.log(response)
-       const myRepo = response.data
-       setRepo(myRepo)
-     })
-   }
 
-   useEffect(()=>
-     getData() ,[])
   
   return  (
     <div className="bg-gray-900 relative pt-2">
