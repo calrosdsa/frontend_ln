@@ -49,7 +49,7 @@ export const register =
 
     try {
       const res = await axios.post(
-        'https://light-nvls.herokuapp.com/api/v1/users/auth/register/',{ username, email, password1, password2 }
+        'https://light-nvls.herokuapp.com/api/v1/users/auth/register/',{ username, email, password1, password2 }, config
       );
 
       dispatch({

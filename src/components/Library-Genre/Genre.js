@@ -41,7 +41,7 @@ const NovelsChapterz = ({ location }) => {
         <Status location={location}/>
         <Ordering location={location}/>
         <PaginationFilter location={location}/>
-          <div className="text-gray-600 mx-auto sm:grid sm:grid-cols-2 gap-3">
+          <div className="text-gray-600  mx-auto grid sm:grid-cols-2 gap-3">
           {novels.map(item=>(
             <div className="flex">
               <Link to={`/novel/${item.slug}`} >
