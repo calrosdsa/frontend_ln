@@ -2,6 +2,7 @@
   "name": "frontend",
     "version": "0.1.0",
   "private": true,
+  "proxy": "https://light-nvls.herokuapp.com",
   "dependencies": {
     "@craco/craco": "^6.3.0",
     "@headlessui/react": "^1.4.1",
