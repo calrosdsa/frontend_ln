@@ -6,7 +6,7 @@ import {formatDistanceToNow} from 'date-fns'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 function CommentUser() {
-    const {data,mutate}= useSWR('/profile/comment', fetcher)
+    const {data,mutate}= useSWR('https://light-nvls.herokuapp.com/profile/comment', fetcher)
 
     return (
         <div className="bg-gray-900 pb-96 pt-20">

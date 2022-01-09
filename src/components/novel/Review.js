@@ -9,7 +9,7 @@ export const fetcher = url => axios.get(url).then(res => res.data)
     const Review =( {match})=>{
   
    
-      const {data,trigger,mutate}  = useSWR(`/novels/postreview/${match.params.slug}/`, fetcher )
+      const {data,trigger,mutate}  = useSWR(`https://light-nvls.herokuapp.com/novels/postreview/${match.params.slug}/`, fetcher )
 
     const headerRef = useRef()
     const [show,setShow]=useState(false)
@@ -25,7 +25,7 @@ export const fetcher = url => axios.get(url).then(res => res.data)
          className={` max-w-lg lg:max-w-xl z-10  fixed inset-0 mt-32 h-1/2  lg:h-3/5 mx-auto bg-gray-800 rounded-lg px-4 pt-1 border-black border ${show && '  brightness-100'} `}
          onSubmit={async() => {
            mutate({...data})
-           await axios.post(`/novels/postreview/${data?.slug}/`, {rating,review})
+           await axios.post(`https://light-nvls.herokuapp.com/novels/postreview/${data?.slug}/`, {rating,review})
            trigger({...data})
            setReview('');
            setRating(0);

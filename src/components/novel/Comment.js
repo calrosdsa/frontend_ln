@@ -9,7 +9,7 @@ const Comment =({match})=>{
   
   
   const [show,setShow] = useState(false)
-  const {data, mutate} = useSWR(`/novels/comment/${match.params.id}/`,fetcher)
+  const {data, mutate} = useSWR(`https://light-nvls.herokuapp.com/novels/comment/${match.params.id}/`,fetcher)
   useEffect(()=>{
     window.scrollTo(0 , 0)
   },[])

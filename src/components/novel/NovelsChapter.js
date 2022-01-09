@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 const NovelsChapters = ({ history, location,match }) => {
   const [pageIndex, setPageIndex] = useState(1);
-  const {data}  = useSWR(`/novels/novel_chapter/${match.params.slug}/?page=${pageIndex}`, fetcher )
+  const {data}  = useSWR(`https://light-nvls.herokuapp.com/novels/novel_chapter/${match.params.slug}/?page=${pageIndex}`, fetcher )
   
   const classes = useStyles();  
   useEffect(()=>{

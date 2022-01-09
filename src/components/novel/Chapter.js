@@ -4,7 +4,7 @@ import React,{useEffect} from 'react'
 import { fetcher } from './Review'
 import { Link } from 'react-router-dom'
 const Chapter =({match})=>{
-  const {data}  = useSWR(`/novels/single_chapter/${match.params.slug}/`, fetcher )
+  const {data}  = useSWR(`https://light-nvls.herokuapp.com/novels/single_chapter/${match.params.slug}/`, fetcher )
   const history = useHistory()
     
   useEffect(()=>{

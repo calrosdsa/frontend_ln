@@ -6,7 +6,7 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 function History() {
-    const {data} = useSWR('/profile/detail/',fetcher)
+    const {data} = useSWR('https://light-nvls.herokuapp.com/profile/detail/',fetcher)
     return (
         <div className='bg-gray-900 h-full pb-96'>
             <div className='md:w-11/12 mx-auto lg:w-5/6 xl:w-4/6 pt-20 bg-gray-800 px-2 sm:px-10 md:px-2'>

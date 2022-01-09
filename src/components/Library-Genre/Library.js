@@ -12,7 +12,7 @@ const Library=({
     auth,
     location
 })=>{
-      const {data,mutate} = useSWR(`novels/library/${location.search}`,fetcher)
+      const {data,mutate} = useSWR(`https://light-nvls.herokuapp.com/novels/library/${location.search}`,fetcher)
       const history =useHistory()
       const [open , setOpen] = useState(false)
 
