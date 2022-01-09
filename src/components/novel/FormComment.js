@@ -38,8 +38,7 @@ function FormComment({mutate,updated,setUpdated,data,commentId,commentBody}) {
            className='mb-2 cursor-pointer md:mb-0 bg-indigo-500 md:px-6 md:py-3  py-0 h-12 text-base 
            shadow-sm font-medium tracking-wider text-white rounded-lg mx-4 w-4/6 hover:shadow-lg hover:bg-indigo-500'
            onClick={async() => {
-            mutate({...data})
-            await axios.put(`/novels/updated/${commentId}/`, {body})
+            await axios.put(`https://light-nvls.herokuapp.com/novels/updated/${commentId}/`, {body})
             mutate({...data})
             setUpdated(false)
           }}

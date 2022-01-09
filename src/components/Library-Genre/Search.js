@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import NovelItem from '../posts/NovelItem'
 function Search() {
   
-  const {data} = useSWR('/novels/search/',fetcher)
+  const {data} = useSWR('https://light-nvls.herokuapp.com/novels/search/',fetcher)
   const history = useHistory()
   const [wordEnter, setWordEnter] = useState('')
   const [showInput,setShowInput]=useState(false)

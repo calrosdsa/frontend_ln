@@ -10,7 +10,7 @@ function Updated({location}) {
     useEffect(() => {
         window.scrollTo(0, 0)
       }, [])
-    const {data} = useSWR(`/categories/updates/${location.search}`,fetcher)
+    const {data} = useSWR(`https://light-nvls.herokuapp.com/categories/updates/${location.search}`,fetcher)
 
 
     return (

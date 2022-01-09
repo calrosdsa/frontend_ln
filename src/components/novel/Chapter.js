@@ -14,18 +14,19 @@ const Chapter =({match})=>{
 
 
     return(
-      <div className='bg-gray-900 '>
+      <div className='bg-gray-900 pt-28 '>
 
-              <div className="bg-gray-800 pb-4 rounded-xl pt-24 px-3 xl:w-3/4 flex space-x-4 lg:space-x-6 items-center mx-auto">
-                <Link to={`/novel/${encodeURIComponent(data?.novel_slug)}`}> 
-              <img src={data?.novel_cover} className='h-28 w-20' alt="" />
-                </Link>
-              <div classname="flex ">
-              <Link to={`/novel/${encodeURIComponent(data?.novel_slug)}`} className='text-3xl text-indigo-300'>{data?.novel_title}</Link>
-              <h1 className='text-2xl text-gray-400'>{data?.title}</h1>
-              </div>
-          </div>
-          <div className='w-full sm:w-3/4  bg-gray-800 mx-auto p-3 mt-5 rounded-xl'>
+           
+<div className='flex items-center space-x-4 lg:space-x-6  pb-3 w-full sm:w-3/4 sm:mx-auto '>
+
+<img src={data?.novel_cover} className='h-32 w-24 rounded-lg' alt="" />
+<div >
+  <Link to={`/novel/${encodeURIComponent(data?.novel_slug)}`} className=' text-2xl lg:text-3xl text-indigo-300 font-medium mt-2 '>{data?.novel_title}</Link>
+ 
+   <h1 className=' text-gray-400 -mt-1 text-lg lg:text-2xl'>{data?.title}</h1>
+</div>
+    </div>
+          <div className='w-full sm:w-3/4  bg-gray-800 mx-auto p-1 mt-5 rounded-xl'>
             <p className=' whitespace-pre-line text-2xl text-gray-400'>{data?.chapter}</p>
 
           </div>

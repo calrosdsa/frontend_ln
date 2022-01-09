@@ -50,7 +50,7 @@ const NovelsChapters = ({ history, location,match }) => {
 
   
   return (
-    <div className="bg-gray-900   w-screen  pt-32 mx-auto">
+    <div className="bg-gray-900   w-screen pb-96  pt-32 mx-auto">
     <div className= 'w-full px-4 sm:w-4/5 xl:w-4/6 mx-auto flex flex-col '>
         <div className='bg-gray-800 p-2 rounded-xl'>
       <div className='flex space-x-4 lg:space-x-6 border-b-2 pb-3 border-gray-400'>
@@ -104,16 +104,16 @@ const NovelsChapters = ({ history, location,match }) => {
         </Grid>
       </Grid>
 
-      <div className="lg:grid lg:grid-cols-2 my-1 ">
+      <div className="lg:grid lg:grid-cols-2 my-1 space-y-5 md:space-y-0 ">
 
          {data?.chapters.map((item)=>(
              <Link key={item.id} className='my cursor-pointer border-b-2 border-gray-500 w-3/4 pb-1 '
               to={(`/chapter/${encodeURIComponent(item.slug)}`)}>
-                <div className='flex space-x-5'>
+                <div className='flex space-x-5 mt-2'>
               <h1 className='px-3 text-gray-400 text-lg font-semibold'>{item.number}</h1>
               <div className=''>
              <h2 className=' line-clamp-1'>{item.title}</h2>
-             <h2>{formatDistanceToNow(
+             <h2 className='text-gray-400 text-sm'>{formatDistanceToNow(
                new Date(moment.utc(item.created_at).local().format()),
                {
                  addSuffix: true,
