@@ -38,7 +38,7 @@ const PrivateRoute = ({
             <Fragment>
 
             {!data? (
-              <div className='w-full h-screen  bg-gray-800 flex  justify-center sm:pt-32 md:pt-36 '>
+              <div className='w-full h-screen  bg-gray-800 flex  justify-center sm:pt-32 md:pt-40 '>
               <ReactLoading type='bars' color='#fff' width={300} />
             </div>
             ):(
@@ -47,7 +47,9 @@ const PrivateRoute = ({
               <div className=' pb-20 w-full sm:w-5/6 lg:w-3/4 xl:w-4/6  mx-auto gap-x-2 '>
               <Link
               to='/'
-              className='flex items-center w-30 md:w-48  justify-center mb-2 md:mb-0 bg-indigo-600 md:px-6 md:py-3 px-10 py-0 h-12 text-sm shadow-sm font-medium tracking-wider text-white rounded-xl hover:shadow-lg hover:bg-indigo-500'
+              className='flex items-center w-30 md:w-48 mt-10 justify-center mb-2 md:mb-0 bg-indigo-600 md:px-6 
+              md:py-3 px-10 h-12 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg
+               hover:bg-indigo-500'
               >
               {' '}
               <svg
@@ -96,7 +98,7 @@ const PrivateRoute = ({
               <div className="bg-gray-500 rounded-xl p ">
               Settings
                 </div>
-                <Link to = '/library'>
+                <Link to = '/library?options='>
                 <div className="bg-gray-500 rounded-xl p">
                 Library
                 </div>

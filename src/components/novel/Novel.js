@@ -7,6 +7,7 @@ import useSWR from 'swr'
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
 import { fetcher } from './Review'
+import Comments from './Comments'
 import ReactStars from "react-rating-stars-component";
     const Novel =( { auth
     ,match})=>{
@@ -27,6 +28,7 @@ import ReactStars from "react-rating-stars-component";
      
     const [open,setOpen]=useState(false)
     const [added,setAdded]= useState(false)
+    
     const [body, setBody] = useState(''); 
     const avg = parseFloat(data?.average)
     useEffect(() => {
@@ -74,7 +76,6 @@ import ReactStars from "react-rating-stars-component";
            className='mb-2 cursor-pointer md:mb-0 bg-indigo-500 md:px-6 md:py-3  py-0 h-12 text-base 
            shadow-sm font-medium tracking-wider text-white rounded-lg mx-4 w-4/6 hover:shadow-lg hover:bg-indigo-500'
            onClick={async() => {
-            mutate({...data})
             await axios.post(`/novels/postcomment/${data?.id}/`, {body})
             mutate({...data})
             setOpen(false)
@@ -84,18 +85,20 @@ import ReactStars from "react-rating-stars-component";
       </div>
       }   
 
+ 
       <div className={`bg-gray-900 `}>
            <div className={` w-full lg:w-150 px-3 sm:px-5  mx-auto ${open && ' filter brightness-50'}`}>
-       <div className=" justify-center - relative z-0 items-center lg:grid lg:grid-cols-5  bg-gray-900 h-screen">
+       <div className=" justify-center - relative z-0 items-center lg:grid lg:grid-cols-3 xl:grid-cols-5  bg-gray-900 h-screen">
 
-         <img className="h-100 lg:h-200 w-screen hidden lg:inline-flex absolute
-          filter brightness-25 blur-2xl p-2  border-8 
+         <img className=" object-cover h-99 w-screen hidden lg:inline-flex absolute
+          filter brightness-25 blur-xl p-2  border-8 
            justify-center" src={data?.cover} alt="" />
 
-         <img className=" xl:rounded-lg h-100  sm:w-2/3 lg:w-full mx-auto lg:col-start-2 col-span-1 z-0 filter  relative 
+         <img className=" xl:rounded-lg h-100 object-contain  sm:w-2/3 lg:w-full mx-auto
+          lg:col-start-1 xl:col-start-2  z-0 filter  relative 
           pt-16 brightness-75 " src={data?.cover} alt="" />
-         <div className="lg:col-start-3 z-0 absolute lg:relative px-2 sm:mx-10 md:mx-28 inset-0 
-          bottom-0 col-span-2 lg:ml-10 items-center top-1/2 lg:top-16 lg:mt-2 ">
+         <div className="lg:col-start-2 xl:col-start-3  z-0 absolute lg:relative px-2 sm:mx-10 md:mx-28 inset-0 
+          bottom-0 col-span-3 lg:ml-10 items-center top-1/2 lg:top-16 lg:-mt-14 ">
          <h1 className=" font-bold  text-3xl  ">{data?.title}</h1>
          <h1 className="text-gray-400 font-semibold">{data?.sub}</h1>
          <h1>{data?.authors}</h1>
@@ -118,26 +121,48 @@ import ReactStars from "react-rating-stars-component";
            )}
          </div>
 
-         <div className=" mb-1 mt-1 lg:flex  lg:space-x-7 lg:divide-x-2 grid grid-cols-2 ">
-           <button className="lg:hidden place-items-center m rounded-xl p   bg-blue-500">
-             <p className="text-sm ">CONTINUE READING</p>
+         <div className=" mb-1 mt-1 lg:flex gap-x-2  lg:divide-x-2 grid grid-cols-2 ">
+        {auth.user?
+           
+           <Link to={`/chapter/${encodeURIComponent(data?.last_chapter.slug.includes('chapter')? data?.last_chapter.slug:data?.first.slug)}`} className="h-16 lg:hidden flex flex-col items-center w-full
+           text-sm rounded-xl p  justify-center bg-indigo-600">
+         <p>CONTINUE READING</p>
+               
+        <p className='truncate line-clamp-1 w-32'>{data?.last_chapter.title.includes('Chapter')? data?.last_chapter.title:data?.first.title}</p>
+</Link>
+:        
+    
+<Link to={`/chapter/${encodeURIComponent(data?.first.slug)}`} className="h-16 lg:hidden flex flex-col items-center w-full
+text-sm rounded-xl p  justify-center bg-indigo-600">
+<p className='font-semibold'>Read</p>
+<p className='truncate line-clamp-1 w-32 font-semibold'>{data?.first.title} </p>
+</Link>
+   
+  }
 
-             <p className="text-sm sm:text-base">CHAPTER </p>
-           </button>
-          {auth === null || (
-           <button onClick={async()=>{
-            mutate({...data})
-           await axios.post(`/novels/favorites-products/update/${data?.id}/`)
-           mutate({...data})
-          }} className="lg:hidden p text-base m 
-           rounded-xl  place-items-center bg-blue-500">
-             {added? 
-             <p className="text-sm sm:text-base">IN LIBRARY</p>  
-             :
-             <p >ADD LIBRARY</p>
-           }
-           </button>)
-           }
+<button 
+disabled={!auth.user}
+onClick={async()=>{
+await axios.post(`/novels/favorites-products/update/${data?.id}/`)
+mutate({...data})
+}} className="flex  justify-center items-center lg:hidden text-sm rounded-xl  bg-indigo-600">
+     {!auth.user? (
+              <div className=' line-clamp-2'>
+              <p>
+                Library
+              </p>
+              <p>
+                Disabled
+              </p>
+              </div>
+              )
+              :
+              added?
+              <p>IN LIBRARY</p>  
+              :
+              <p >ADD LIBRARY</p>
+            }
+</button>
            <div className="flex flex-col bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
            <h1 className="text-base text-gray-200">Chapters:</h1>
            <div className="flex items-center space-x-3 ">
@@ -177,10 +202,10 @@ import ReactStars from "react-rating-stars-component";
 
            </div>
          <div className=" mx-auto">
-           <p className=" lg:text-gray-300 text-sm font-bold">CATEGORIES:</p>
-           <div className=" font-bold text-base flex flex-wrap   ">
+           <p className=" lg:text-gray-300 text-sm font-bold">Categories:</p>
+           <div className=" text-base pb-2 flex flex-wrap col-full">
            {data?.category.map((item)=>
-           <div className="bg-gray-800  rounded-lg p m">
+           <div className="bg-gray-600  rounded-lg p m">
              <Link to={`/genre/?category=${item.id}`}>
                  <h1>{item.title}</h1>
                </Link>
@@ -190,38 +215,63 @@ import ReactStars from "react-rating-stars-component";
           
          </div>
          <div className="lg:flex lg:space-x-14 hidden ">
-           <button className="flex flex-col text-sm rounded-xl px-6 bg-blue-500">
+        {auth.user?
+             <Link to={`/chapter/${encodeURIComponent(data?.last_chapter.slug.includes('chapter')? data?.last_chapter.slug:data?.first.slug)}`} 
+             className=" flex flex-col items-center w-28 lg:w-48 
+             text-sm rounded-xl p px-4 justify-center bg-indigo-600">
              <p>CONTINUE READING</p>
-             <p>CHAPTER </p>
-           </button>
-
-           <button onClick={async()=>{
-             mutate({...data})
+             <p className='truncate line-clamp-1 w-32'>
+               
+               {data?.last_chapter.title.includes('Chapter')? data?.last_chapter.title:data?.first.title}
+               </p>
+           </Link>
+:
+<Link to={`/chapter/${encodeURIComponent(data?.first.slug)}`} className=" flex flex-col items-center w-28 lg:w-48 
+text-sm rounded-xl p px-4 justify-center bg-indigo-600">
+<p>Read</p>
+<p className='truncate line-clamp-1 w-32'>{data?.first.title} </p>
+</Link>
+}
+           <button
+           disabled={!auth}
+           onClick={async()=>{
             await axios.post(`/novels/favorites-products/update/${data?.id}/`)
             mutate({...data})
-           }} className="flex flex-col  text-sm rounded-xl px-6 bg-blue-500">
-             {added?
-             <p>IN LIBRARY</p>  
-             :
-             <p >ADD LIBRARY</p>
-           }
+          }} className={`flex  justify-center items-center p h-14 w-28 text-sm rounded-xl px-6
+          bg-indigo-600`}>
+            {!auth.user? (
+              <div className=' line-clamp-2'>
+              <p>
+                Library
+              </p>
+              <p>
+                Disabled
+              </p>
+              </div>
+              )
+              :
+              added?
+              <p>IN LIBRARY</p>  
+              :
+              <p >ADD LIBRARY</p>
+            }
            </button>
 
          </div>
          
          </div>
            </div>
-           <div className="lg:flex pt-28  lg:pt-1 lg:w-4/5  lg:mx-auto  space-y-1 lg:space-y-0
+           <div className="lg:flex pt-56  sm:pt-40   lg:pt-1 lg:w-4/5  lg:mx-auto  space-y-1 lg:space-y-0
             lg:justify-between lg:space-x-14 
            grid grid-rows-2 mx-auto px-2 sm:px-6 ">
 
-             <div className="bg-gray-300 p-1   mx-auto lg:p-3 w-5/6  lg:w-2/4 relative rounded-xl">
+             <div className="bg-gray-300 p-1   mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
              <Link to={(`/chapters/${encodeURIComponent(data?.slug)}`)}>
                <h1 className="text-3xl font-medium text-gray-600">NOVEL CHAPTERS</h1>
                <h4 className="text-gray-500 xl:text-lg mt-1">Chapter {data?.chapters} Clousure</h4>
                <h4 className="text-gray-500 xl:text-lg">Updated {' '}
                {formatDistanceToNow(
-                 new Date(moment.utc(data?.update_at).local().format()),
+                 new Date(moment.utc(data?.updated).local().format()),
                  {
                    addSuffix: true,
                  }
@@ -233,7 +283,7 @@ import ReactStars from "react-rating-stars-component";
                 </svg>
                    </Link>
                </div>
-               <div className="bg-green-100 p-1 mx-auto lg:p-3 w-5/6  lg:w-2/4 relative rounded-xl">
+               <div className="bg-green-100 p-1 mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
                <Link to={(`/reviews/${encodeURIComponent(data?.slug)}`)}>
                <h1 className="text-3xl font-medium text-gray-600">USER REVIEWS</h1>
                <h4 className="text-gray-500 xl:text-lg mt-1">Reviews from {data?.reviews} readers</h4>
@@ -282,90 +332,9 @@ import ReactStars from "react-rating-stars-component";
 Posting insults, swearing or links in the comments is strictly prohibited.
 The responsibility for the content in the comments belongs entirely to the user and certainly the LNP platform cannot be held responsible.</p>
          {data?.comments.map((comment) => (
-           
-
-    <div class='relative overflow-hidden bg-gray-800 shadow-lg h-auto w-full sm:w-5/6 mx-auto  border-gray-700 border-2  sm:rounded-lg p-1'>
-                
-          <div className='flex space-x-5 items-center w-full justify-between'>
-            <div className='flex space-x-4'>
-        <img class='rounded-full h-16 w-16' src={comment.image} />
-        <div>
-          <h2 class='text-xl lg:text-3xl '>{comment.added_b} {comment.id}</h2> 
-          <h2 className='bg-gray-600 rounded-xl text-base w-16 px-1'>Reader</h2>
-        </div>
-            </div>
-        <Link className='pr-5 bg-indigo-600 p rounded-lg' to={`/comment/${comment.id}`}>View Details</Link>
-          </div>
-          <div class='flex items-end pt-2 px-2 sm:px-5 xl:px-10 justify-between mx-1  mb-1'>
-        <p class=' text-gray-200  text-base my-1 whitespace-pre-line'>{comment.body}</p>
-  </div>
-
-
-<div className='flex justify-between'>
-        <p className='text-gray-500 text-sm'>
-          Posted{' '}
-          {formatDistanceToNow(
-            new Date(moment.utc(comment.date_added).local().format()),
-            {
-              addSuffix: true,
-            }
-            )}
-        </p>
-    
-  <div class='flex items-center gap-5'>
-
-  <svg onClick={async()=>{
-    mutate({...data })
-    await axios.put(`/novels/postcomment/${comment.id}/`)
-    mutate({...data})
-  }} xmlns="http://www.w3.org/2000/svg" class="h-4 lg:h-5 lg:w-5 w-4 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
-<path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-</svg>
-    <p className='font-semibold -ml-3 '>
-  {comment.count_likes}{' '}
-</p>
-
-      <svg
-        fill='#FFFFFF'
-        onClick={()=>setOpen(!open)}
-        className="cursor-pointer"
-        height='16'
-        viewBox='0 0 48 48'
-        width='16'
-        >
-        <path
-          clip-rule='evenodd'
-          d='M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z'
-          fill-rule='evenodd'
-          ></path>
-      </svg>
-      <p className="font-semibold -ml-3 mr-2">{comment.count_reply}</p>
-
-      {!auth && comment.added_b === auth.user.username && (
-        <svg
-       
-        xmlns='http://www.w3.org/2000/svg'
-        className='h-6 w-6 text-red-600 cursor-pointer '
-        fill='none'
-        viewBox='0 0 24 24'
-            stroke='currentColor'
-            >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16'
-              />
-          </svg>
-        )}
-         <Link to={`/comment/${comment.id}`} className="text-lg mr-3">Reply?</Link>
-  </div>
-</div>
-
-
-
-    </div>
-             
+              <div>
+                <Comments data={data} mutate={mutate} comment={comment}/>
+              </div>   
              ))
            }
          

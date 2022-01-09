@@ -19,4 +19,5 @@ export const setWebsockets = (notifications)=>async(dispatch, getState)=>{
             image:'https://m.media-amazon.com/images/I/41WUb2JBGqL.jpg'
         }
     })
+    localStorage.setItem('notifications', JSON.stringify(getState().websockets.notifications))
 }

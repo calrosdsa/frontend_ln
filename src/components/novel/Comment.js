@@ -1,4 +1,4 @@
-import React,{Fragment,useState} from "react";
+import React,{Fragment,useState,useEffect} from "react";
 import axios from "axios";
 import moment from 'moment'
 import { formatDistanceToNow } from "date-fns";
@@ -7,15 +7,17 @@ import { fetcher } from './Review'
 import ReplyComment from "./ReplyComment";
 const Comment =({match})=>{
   
+  
   const [show,setShow] = useState(false)
   const {data, mutate} = useSWR(`/novels/comment/${match.params.id}/`,fetcher)
+  useEffect(()=>{
+    window.scrollTo(0 , 0)
+  },[])
   return(
     
     <Fragment>
            
-            {show&&
-            <ReplyComment mutate={mutate} data={data} setShow={setShow} user={data?.added_b} commentId = {data?.id} />
-            }
+            <ReplyComment mutate={mutate} show={show} data={data} setShow={setShow} user={data?.added_b} commentId = {data?.id} />
               <div className={`pt-20 bg-gray-900  h-full pb-96 ${show&& 'filter brightness-50'}`}>
                 <div className="bg-gray-800 p-1 rounded-xl mx-auto w-full sm:w-3/4 xl:w-4/6">
                   <div className="flex space-x-4 xl:space-x-8"> 
@@ -94,7 +96,7 @@ const Comment =({match})=>{
                   {data?.reply_comments.map(item=>(
                       <div className="bg-gray-800 p-1 rounded-xl">
                       <div className="flex items-center space-x-4 xl:space-x-8"> 
-                    <img src={item?.avatar} className="h-12 w-12  rounded-full" alt="" />
+                    <img src={item?.image} className="h-12 w-12  rounded-full" alt="" />
                     <div>
                 <h2 class='text-lg lg:text-xl '>{item?.added_b}</h2> 
                 <h2 className='bg-gray-600 rounded-xl px-1'>Reader</h2>

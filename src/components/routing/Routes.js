@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
-import PrivateRoute from './PrivateRoute';
+  import PrivateRoute from './PrivateRoute';
 import Posts from '../posts/Posts'
 import Novel from '../novel/Novel'
 import ReplyComment from '../novel/ReplyComment';
@@ -30,7 +30,6 @@ const Routes = () => {
         <Route exact path='/posts'  component={Posts} />
         <Route exact path='/novel/:slug' component={Novel}/>
         <Route exact path='/comment/:id' component={Comment}/>
-        <Route exact path='/comment/:id' component={ReplyComment}/>
         <Route exact path='/library' component={Library}/>
         <Route exact path='/chapters/:slug' component={NovelsChapter}/>
         <Route exact path='/genre' component={Genre}/>

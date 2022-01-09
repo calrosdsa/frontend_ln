@@ -36,11 +36,11 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='profile' />;
+    return <Redirect to='/' />;
   }
 
   return (
-    <div className='overflow-hidden w-screen h-screen bg-gray-900 flex items-center justify-center mt-16 md:-mt-10 px-5 py-0'>
+    <div className='overflow-hidden w-screen h-screen bg-gray-900 flex items-center justify-center  md:-mt-10 px-5 py-0'>
       <div
         className='bg-gray-800 text-gray-200 rounded-3xl mx-auto my-auto shadow-xl w-full overflow-hidden'
         // style='max-width:1000px'

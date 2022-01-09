@@ -21,19 +21,11 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
     readyState,
   } = useWebSocket(socketUrl);
   
+  
   useEffect(() => {
     if (lastMessage !== null) {
-      setMessageHistory(prev => prev.concat(lastMessage));
+      dispatch(setWebsockets(lastMessage.data))
       document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) + 1;
-      Storage.prototype.setObj = function(key, obj) {
-        return this.setItem(key, JSON.stringify(lastMessage.data))
-    }
-    }
-  }, [lastMessage, setMessageHistory]);
-
-  useEffect(() => {
-    if (lastMessage !== null) {
-        dispatch(setWebsockets(lastMessage.data))
     }
 }, [dispatch, lastMessage])
 
@@ -61,12 +53,14 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
       </svg>
-      <span id='notification-badge text-lg'>0</span> 
+      <span id='notification-badge'>0</span> 
       </Link>
-        <Link to='/library' className=''>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+        <Link to='/library?options=' className='bg-gray-800 hover:bg-gray-700 flex items-center
+           text-white p rounded cursor-pointer text-base mr-6 hover:text-indigo-400'>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
   <path fill-rule="evenodd" d="M10.496 2.132a1 1 0 00-.992 0l-7 4A1 1 0 003 8v7a1 1 0 100 2h14a1 1 0 100-2V8a1 1 0 00.496-1.868l-7-4zM6 9a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zm3 1a1 1 0 012 0v3a1 1 0 11-2 0v-3zm5-1a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z" clip-rule="evenodd" />
 </svg>
+     Library
         </Link>
        
         <Link
@@ -74,7 +68,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
           className='bg-gray-800 hover:bg-gray-700 flex items-center
            text-white p rounded cursor-pointer text-base mr-6 hover:text-indigo-400'
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
          </svg>
          
@@ -82,10 +76,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
         </Link>
       </div>
       {/* Responsive Mobile Buttons */}
-      <div className='flex justify-end mr-5 space-x-0 w-1/2 md:hidden'>
+      <div className='flex justify-end mr-5 space-x-0  md:hidden'>
         <button
           onClick={() => setOpen(!open)}
-          className='navbar-burger flex items-center text-gray-200 mr-2'
+          className=' flex items-center text-gray-200 mr-2'
         >
           <svg
             className='block h-7 w-7 fill-current'
@@ -101,11 +95,13 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
   );
 
   const guestLinks = (
-    <div className='flex text-white text-sm font-bold ml-2 gap-x-3 md:gap-x-5 '>
+    <div>
+
+    <div className='hidden md:flex text-white text-sm font-bold ml-2 gap-x-3 md:gap-x-5 '>
       <Link
         className='bg-gray-900 hover:bg-gray-700 text-white p-1 rounded cursor-pointer hover:text-indigo-400'
         to='/login'
-      >
+        >
         Login
       </Link>
       <Link
@@ -115,6 +111,22 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
         Sign Up
       </Link>
     </div>
+     <div className='flex justify-end  space-x-0 w-1/2 md:hidden'>
+     <button
+       onClick={() => setOpen(!open)}
+       className='navbar-burger flex items-center text-gray-200 mr-2'
+       >
+       <svg
+         className='block h-7 w-7 fill-current'
+         viewBox='0 0 20 20'
+         xmlns='http://www.w3.org/2000/svg'
+       >
+         <title>Mobile menu</title>
+         <path d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z'></path>
+       </svg>
+     </button>
+   </div>
+         </div>
   );
 
   return (
@@ -243,6 +255,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
                       <div className='flex flex-col justify-between h-full'>
                         <div>
                           <ul className=' space-y-4'>
+                          {user &&
                               <Link
                                 onClick={() => setOpen(false)}
                                 to='/profile'
@@ -253,7 +266,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                 </svg>
                                 <h1>Profile</h1>
-                              </Link>
+                              </Link>}
                            
                               <Link onClick={() => setOpen(false)} className='p flex items-center text-sm font-semibold text-gray-400 
                                 hover:bg-gray-900 space-x-3 hover:text-indigo-600 rounded' to='/search'>
@@ -302,20 +315,21 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
       </Link>
                           </ul>
                         </div>
+                      {user?
                         <div className='mt-auto'>
                           <div className='pt-6'>
                             <Link
                               onClick={() => setOpen(false)}
                               className='block p-1 mb-3 leading-loose text-xs text-center font-semibold bg-gray-900 hover:bg-gray-900 rounded-xl'
                               to='/settings'
-                            >
+                              >
                               Account Settings
                             </Link>
                             <a
                               onClick={() => handleLogout()}
                               href='#!'
                               className='block p-1 mb-2 leading-loose text-xs text-center text-white font-semibold bg-red-600 hover:bg-red-700  rounded-xl'
-                            >
+                              >
                               Log out
                             </a>
                           </div>
@@ -325,16 +339,35 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
                             </span>
                           </p>
                         </div>
+:
+                        <div className='flex flex-col space-y-3 w-48 md:hidden text-white text-sm font-bold '>
+      <Link
+                              onClick={() => setOpen(false)}
+      
+        className='bg-gray-900 hover:bg-gray-700 text-white p-1 rounded cursor-pointer hover:text-indigo-400'
+        to='/login'
+        >
+        Login
+      </Link>
+      <Link
+                              onClick={() => setOpen(false)}
+        className='bg-indigo-600 hover:bg-gray-700 text-white p-1 rounded cursor-pointer hover:text-indigo-200'
+        to='/register'
+      >
+        Sign Up
+      </Link>
+    </div>
+                    }
                       </div>
                       {/* /End replace */}
                     </div>
                   </div>
-                </div>
+                  </div>
               </Transition.Child>
-            </div>
+              </div>
           </div>
-        </Dialog>
-      </Transition.Root>
+          </Dialog>
+          </Transition.Root>
     </>
   );
 };

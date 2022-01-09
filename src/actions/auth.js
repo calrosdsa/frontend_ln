@@ -91,11 +91,11 @@ export const login = (email, password) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify();
   //We use axios to send a post request to /api/users to register.
   //The register action takes in the response from the '/api/users' backend using the post method and store it in the res variable
   try {
-    const res = await axios.post('/api/v1/users/auth/login/', body, config);
+    const res = await axios.post('/api/v1/users/auth/login/', { email, password });
 
     dispatch({
       type: LOGIN_SUCCESS,

@@ -1,9 +1,8 @@
 {
   "name": "frontend",
-  "homepage": "https://lightnovels.vercel.app",
-  "version": "0.1.0",
+    "version": "0.1.0",
   "private": true,
-  "proxy": "https://djangoapi3.herokuapp.com",
+  "proxy": "https://light-nvls.herokuapp.com",
   "dependencies": {
     "@craco/craco": "^6.3.0",
     "@headlessui/react": "^1.4.1",

@@ -34,10 +34,10 @@ const Ordering = ({ location }) => {
       </Button>
       <Button
         component={Link}
-        to={appendQuery(location, { ordering: "-update_at" })}
+        to={appendQuery(location, { ordering: "-updated" })}
         className={classes.button}
         color="primary"
-        variant={ordering === "-update_at" ? "contained" : "outlined"}
+        variant={ordering === "-updated" ? "contained" : "outlined"}
         >
         Updated
       </Button>

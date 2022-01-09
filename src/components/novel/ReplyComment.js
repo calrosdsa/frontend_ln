@@ -1,14 +1,19 @@
-import React,{Fragment, useState} from 'react'
+import React,{Fragment, useState,useEffect} from 'react'
 import axios from 'axios';
 
-function ReplyComment({commentId,setShow,user,mutate,data}) {
-  const [reply, setReply] = useState(''); 
+function ReplyComment({commentId,setShow,show,user,mutate,data}) {
+
+  const [reply, setReply] = useState('');   
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  },[])
 
 
   return (
     <Fragment>
+      {show&&
 
-                <div className=' top-1/3 inset-x-0 rounded-lg px-2 mx-auto fixed z-20 bg-gray-800 max-w-lg '
+                <div className=' top-1/3 inset-x-0 rounded-lg  px-2 mx-auto fixed z-20 bg-gray-800 max-w-lg '
                 >
                  <div className='flex  justify-between items-center'>
                  <h1 className=' text-xl text-gray-400 border-b-2 border-gray-400 my-1 py-1'>Reply to {user}</h1>
@@ -34,16 +39,16 @@ function ReplyComment({commentId,setShow,user,mutate,data}) {
                       className='mb-2 cursor-pointer md:mb-0 bg-indigo-500 md:px-6 md:py-3  py-0 h-12 text-base 
                       shadow-sm font-medium tracking-wider text-white rounded-lg mx-4 w-4/6 hover:shadow-lg hover:bg-indigo-500'
                       onClick={async() => {
-                      mutate({...data})
-                      await axios.post(`/novels/comment/${commentId}/`, {reply})
-                      mutate({...data})
-                      setReply('')
-                      setShow(false)
+                        mutate({...data})
+                        await axios.post(`/novels/comment/${commentId}/`, {reply})
+                        mutate({...data})
+                        setReply('')
+                        setShow(false)
                       }}
                       >Post Comment</button>
                   </div>
                  </div>
-             
+                    }
                       </Fragment>
 
   )

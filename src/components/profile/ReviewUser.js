@@ -9,36 +9,34 @@ import axios from 'axios'
 function ReviewUser() {
     const {data,mutate} = useSWR('/profile/review', fetcher)
     return (
-        <div className='bg-gray-900   pb-56'>
+        <div className='bg-gray-900   pt-20  pb-56'>
+          <div className=' p-1  rounded-2xl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-4/6 mx-auto' >
+          <h1 className='text-2xl  text-gray-400'>Recent Reviews Last 20</h1>
             {data?.reviews.map(item=>(
-                 <div className={`w-full pb-2 border-gray-500 bg-gray-800 h-full xl:pl-5 pt-2 sm:w-4/5
-                  lg:w-2/3 xl:w-4/6  sm:mx-auto px-3`}>
-                <Link to={`novel/${item.novel_slug}`} className='flex justify-center '>
-                  <img src={item.novel_cover} className='h-20 w-14' alt="" />
-                </Link>
-                  <h1 className='flex justify-center text-indigo-400'>{item.novel_title}</h1>
-            
+                <div className='p-1 my-2 rounded-xl bg-gray-800'>
+                  
              
-               <div className=' border-2 p-1 border-gray-900 rounded-2xl w--full lg:w-2/3 mx-auto' >
+                 <div className='flex justify-between'>
+
+                  <Link  to={`novel/${item.novel_slug}`} className='flex justify-center text-indigo-400'>{item.novel_title}</Link>
+             <p className="text-xs  lg:text-base mr-10"> {formatDistanceToNow(
+               new Date(moment.utc(item?.date_added).local().format()),
+               {
+                 addSuffix: true,
+                }
+                )}</p>
+                </div>
              <div className="flex space-x-4 items-center pt-3">
-             <img className="h-11 w-11 lg:h-16 lg:w-16 rounded-full" src={item.avatar} alt="" />
-             <div className=" -space-y-3">
-             <h1 className=" text-blue-300">{item.user}</h1>
+             <div className=" border-b-2 border-gray-400 w-full">
              <ReactStars
-             size={25}
+             size={20}
              count={5}
              edit={false}
              value={item?.rating}
              />
              </div>
-             <p className="text-xs  lg:text-base mr-10"> {formatDistanceToNow(
-             new Date(moment.utc(item?.date_added).local().format()),
-             {
-              addSuffix: true,
-             }
-             )}</p>
              </div>
-             <h1 className="w-full my-1 pb-1  text-xs sm:text-sm lg:text-base  text-white">{item?.review}</h1>
+             <h1 className="w-full my-1 pb-1 border-b-2 border-gray-400 pb-2  text-xs sm:text-sm lg:text-base  text-white">{item?.review}</h1>
              <div className="flex justify-between mx-2   pb-3">
               <button className="border-indigo-600 border-2 text-indigo-700 rounded-md p-0 text-xs lg:text-base">View Details</button>
               <div className="flex space-x-2 mr-7 items-center  space-x-4">
@@ -52,20 +50,15 @@ function ReviewUser() {
               </svg>
               <p className="text-sm xl:text-base">{item?.like}</p>
                   </div>
-                  <div className="flex space-x-2 items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 lg:h-5 lg:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
-              <p className="text-sm xl:text-base">{}2</p>
-                  </div>
+                 
               </div>
              </div>
-             </div>
-             </div>
+            </div>
             ))}
             
+            </div>
         </div>
-    )
+        )
 }
 
 export default ReviewUser

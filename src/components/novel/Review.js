@@ -8,9 +8,7 @@ import axios from 'axios'
 export const fetcher = url => axios.get(url).then(res => res.data)
     const Review =( {match})=>{
   
-    useEffect(()=>{
-      window.scrollTo(0,0)
-    })
+   
       const {data,trigger,mutate}  = useSWR(`/novels/postreview/${match.params.slug}/`, fetcher )
 
     const headerRef = useRef()

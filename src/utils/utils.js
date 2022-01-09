@@ -4,8 +4,8 @@
 export function appendQuery(location, query) {
   const parsed = queryString.parse(location.search);  
   let pathname = location.pathname;
-  if (pathname.slice(-1) !== "/") {
-    pathname += "/";
+  if (pathname.slice(-1) !== "") {
+    pathname += "";
   }
   return {
     ...location,

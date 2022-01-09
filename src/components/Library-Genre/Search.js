@@ -1,4 +1,4 @@
-import React,{useMemo,useState,useRef} from 'react'
+import React,{useMemo,useState,useRef,useEffect} from 'react'
 import {XIcon} from '@heroicons/react/solid'
 import useSWR from 'swr'
 import { fetcher } from '../novel/Review'
@@ -6,17 +6,19 @@ import Autocomplete from './Autocomplete'
 import { useHistory } from 'react-router-dom'
 import NovelItem from '../posts/NovelItem'
 function Search() {
-    const {data} = useSWR('http://127.0.0.1:8000/novels/allnovels/',fetcher,{revalidateIfStale:false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false})
-    const history = useHistory()
-    const [wordEnter, setWordEnter] = useState('')
-    const [showInput,setShowInput]=useState(false)
-    const [cursor,setCursor]=useState(-1)
-    const searchResultRef = useRef(null);
-    const searchContainer = useRef(null);
-
-
+  
+  const {data} = useSWR('/novels/search/',fetcher)
+  const history = useHistory()
+  const [wordEnter, setWordEnter] = useState('')
+  const [showInput,setShowInput]=useState(false)
+  const [cursor,setCursor]=useState(-1)
+  const searchResultRef = useRef(null);
+  const searchContainer = useRef(null);
+  
+  
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
     
   //  useEffect(() => {
     //    window.addEventListener("mousedown", handleClickOutside);

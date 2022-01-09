@@ -13,11 +13,11 @@ const Notification = ({auth:{user,loading}}) => {
   return (
     <Fragment>
         {user === null || loading  ? (
-          <div className='bg-gray-600 w-screen h-screen mt-40'>
+          <div className='bg-gray-600 w-screen h-screen pt-40'>
           Your cart is empty {}<Link to='/'>Go Back</Link>
           </div>
           ) : (
-            <div className='bg-gray-400 mx-auto h-screen w-scrren mt-20'>
+            <div className='bg-gray-400 mx-auto h-screen w-scrren pt-20'>
             {initialValue.map((item)=>(
               <div>{item.notifications}100
           <img className='h-32 w-20' src={item.image} alt="" />

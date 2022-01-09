@@ -86,11 +86,14 @@ const CommentItem = ({
               <div className='flex space-x-4'>
           <img class='rounded-full h-16 w-16' src={comment.image} />
           <div>
-            <h2 class='text-xl lg:text-3xl '>{comment.added_b}</h2> 
+            <h2 class='text-xl lg:text-2xl '>{comment.added_b}</h2> 
             <h2 className='bg-gray-600 rounded-xl px-1'>Reader</h2>
           </div>
               </div>
+              {auth.user.username === comment.added_b &&
           <Link className='pr-5 bg-indigo-600 p rounded-lg' to={`/comment/${comment.id}`}>View Details</Link>
+              }
+              
             </div>
        
             <div class='flex items-end pt-2 px-2 sm:px-5 xl:px-10 justify-between mx-1  mb-1'>

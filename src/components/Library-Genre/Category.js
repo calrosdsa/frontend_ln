@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Category = ({ location }) => {
+const  Category = ({ location }) => {
   const category = useSelector(state => state.filter.category);
   const category_ = useSelector(state => state.filter.category_);
 

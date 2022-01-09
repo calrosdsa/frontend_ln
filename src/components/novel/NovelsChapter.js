@@ -57,9 +57,9 @@ const NovelsChapters = ({ history, location,match }) => {
 
         <img src={data?.novel.cover} className='h-32 w-24 rounded-lg' alt="" />
         <div>
-          <h1 className=' text-2xl text-indigo-300 font-medium mt-2 '>{data?.novel.title}</h1>
+          <Link to={`/novel/${encodeURIComponent(data?.novel.slug)}`} className=' text-2xl text-indigo-300 font-medium mt-2 '>{data?.novel.title}</Link>
           <h2 className=' text-gray-400 mt-2'>Update {formatDistanceToNow(
-            new Date(moment.utc(data?.novel.update_at).local().format()),
+            new Date(moment.utc(data?.novel.updated).local().format()),
             {
               addSuffix: true,
             }
@@ -68,7 +68,7 @@ const NovelsChapters = ({ history, location,match }) => {
         </div>
             </div>
 
-           <h1 className='text-gray-400 text-2xl '>{data?.novel.title} Novel Chapters</h1>
+           <h1 className='text-gray-400 text-2xl '>  {data?.novel.title} Novel Chapters</h1>
            <p className='text-gray-400'>List of most recent chapters published for {data?.novel.title} novel. A total of {data?.novel.chapters} chapters
               have been translated and the release date of the last chapter is Nov 29, 2021</p>
 
@@ -109,6 +109,9 @@ const NovelsChapters = ({ history, location,match }) => {
          {data?.chapters.map((item)=>(
              <Link key={item.id} className='my cursor-pointer border-b-2 border-gray-500 w-3/4 pb-1 '
               to={(`/chapter/${encodeURIComponent(item.slug)}`)}>
+                <div className='flex space-x-5'>
+              <h1 className='px-3 text-gray-400 text-lg font-semibold'>{item.number}</h1>
+              <div className=''>
              <h2 className=' line-clamp-1'>{item.title}</h2>
              <h2>{formatDistanceToNow(
                new Date(moment.utc(item.created_at).local().format()),
@@ -116,6 +119,8 @@ const NovelsChapters = ({ history, location,match }) => {
                  addSuffix: true,
                 }
                 )}</h2>
+                </div>
+                </div>
                 </Link>
            ))}
            </div>

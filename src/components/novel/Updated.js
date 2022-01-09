@@ -24,13 +24,15 @@ function Updated({location}) {
                     next={data?.next} pageIndex={pageIndex} setPageIndex={setPageIndex} location={location}/>
             <div className='sm:grid sm:grid-cols-2 justify-center sm:place-items-start flex flex-col place-items-center my-1'>
             {data?.results.map(item=>(
-                <div className='flex space-x-2 m'>
+                <div className='flex space-x-2 -3 md:m my'>
                     <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
                     <img src={item.novel_cover} className='w-14 h-20' alt="" />
                     </Link>
                     <div>
-                        <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} className='text-gray-200 line-clamp-1'>{item.novel_title}</Link>
-                        <Link to={`/chapter/${encodeURIComponent(item.slug)}`} className='text-indigo-400 line-clamp-1'>{item.title}</Link>
+                        <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} className='text-gray-200 sm:w-40 md:w-64 xl:w-full text-sm
+                         line-clamp-1'>{item.novel_title}</Link>
+                        <Link to={`/chapter/${encodeURIComponent(item.slug)}`} className='text-indigo-400 sm:w-40 md:w-64 xl:w-96 text-sm
+                         line-clamp-1'>{item.title}</Link>
                         <div className='flex items-center space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />

@@ -9,43 +9,25 @@ function CommentUser() {
     const {data,mutate}= useSWR('/profile/comment', fetcher)
 
     return (
-        <div>
+        <div className="bg-gray-900 pb-96 pt-20">
+          <div class=' relative overflow-hidden pt-5 bg-gray-900 shadow-lg h-auto w-full sm:w-5/6 mx-auto 
+            lg:w-3/4 xl:w-4/6  sm:rounded-lg p-1'>
          {data?.comments.map(comment=>(
-              <div class='relative overflow-hidden bg-gray-800 shadow-lg h-auto w-full sm:w-5/6 mx-auto  border-gray-700 border-2  sm:rounded-lg p-1'>
-                
-              <div className='flex space-x-5 items-center w-full justify-between'>
-                <div className='flex space-x-4'>
-            <img class='rounded-full h-16 w-16' src={comment.image} />
-            <div>
-              <h2 class='text-xl lg:text-3xl '>{comment.added_b} {comment.id}</h2> 
-              <h2 className='bg-gray-600 rounded-xl text-base w-16 px-1'>Reader</h2>
-            </div>
-                </div>
-            <Link className='pr-5 bg-indigo-600 p rounded-lg' to={`/comment/${comment.id}`}>View Details</Link>
-              </div>
-              <div class='flex items-end pt-2 px-2 sm:px-5 xl:px-10 justify-between mx-1  mb-1'>
-            <p class=' text-gray-200  text-base my-1 whitespace-pre-line'>{comment.body}</p>
-      </div>
-    
-    
-    <div className='flex justify-between'>
-            <div className='text-gray-500 text-sm flex space-x-4'>
-             <h1>
-                Posted{' '}
-              {formatDistanceToNow(
-                new Date(moment.utc(comment.date_added).local().format()),
-                {
-                  addSuffix: true,
-                }
-                )}   in
-                </h1>
-                <Link to={`/novel/${encodeURIComponent(comment.novel_slug)}`} className='text-indigo-400 h-5 border-b-2  border-indigo-400 '>
-               {comment.novel_title}
-                </Link>
+           <div className='my-2 bg-gray-800 p sm:p-1 lg:p-2 lg:px-5 rounded-xl'>
 
-            </div>
+                  <h1 className='text-gray-400'>Novel Comment</h1>
+                <div className='flex justify-between '>
+                  <Link to={`/novel/${encodeURIComponent(comment.novel_slug)}`}  className='text-indigo-400 text-lg'>{comment.novel_title}</Link>
+             <h1 className='text-sm text-gray-500'>
+                {moment(new Date(comment.date_added)).format('MMM d, HH:mm:ss')}
+                </h1>
+                </div>
+            
+            <h1 className='text-gray-200 border-b-2 border-t-2 pb-1 pt-1 border-gray-400  text-base my-1 whitespace-pre-line'>{comment.body}</h1>
+    
+    
         
-      <div class='flex items-center gap-5'>
+      <div class='flex items-center justify-end gap-5'>
     
       <svg onClick={async()=>{
         mutate({...data })
@@ -57,7 +39,7 @@ function CommentUser() {
         <p className='font-semibold -ml-3 '>
       {comment.count_likes}{' '}
     </p>
-    
+    <Link className='flex items-center space-x-3' to={`/comment/${comment.id}`}>
           <svg
             fill='#FFFFFF'
             className="cursor-pointer"
@@ -72,14 +54,19 @@ function CommentUser() {
               ></path>
           </svg>
           <p className="font-semibold -ml-3 mr-2">{comment.count_reply}</p>
+              </Link>
     
             <svg
-           
+            onClick={async()=>{
+              mutate({...data})
+              await axios.delete(`/novels/postcomment/${comment.id}`)
+              mutate({...data})
+            }}
             xmlns='http://www.w3.org/2000/svg'
             className='h-6 w-6 text-red-600 cursor-pointer '
             fill='none'
             viewBox='0 0 24 24'
-                stroke='currentColor'
+            stroke='currentColor'
                 >
                 <path
                   strokeLinecap='round'
@@ -88,14 +75,11 @@ function CommentUser() {
                   d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16'
                   />
               </svg>
-             <Link to={`/comment/${comment.id}`} className="text-lg mr-3">Reply?</Link>
       </div>
     </div>
     
-    
-    
-        </div>
-         ))}        
+    ))}        
+    </div>
         </div>
     )
 }
