@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { fetcher } from '../novel/Review'
 import Title from './Title'
 function FilterTag({location}) {
-    const {data} = useSWR(`/categories/tags/${location.search}`,fetcher)
+    const {data} = useSWR(`https://light-nvls.herokuapp.com/categories/tags/${location.search}`,fetcher)
     return (
         <div className='bg-gray-900 pt-20 h-full lg:h-screen'>
             <div className='w-full sm:w-4/5 lg:w-4/6 mx-auto'> 

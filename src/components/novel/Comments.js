@@ -29,8 +29,8 @@ function Comments({comment,data,mutate}) {
                       <PencilAltIcon onClick={()=>setUpdated(!updated)} className='h-6 w-6  -mt-2 cursor-pointer'/>
                       <FormComment commentBody={comment.body} data={data} updated={updated} commentId={comment.id} setUpdated={setUpdated} mutate={mutate} />
                       <TrashIcon  onClick={async()=>{
-              mutate({...data })
-              await axios.delete(`/novels/postcomment/${comment.id}/`)
+              
+              await axios.delete(`https://light-nvls.herokuapp.com/novels/postcomment/${comment.id}/`)
               mutate({...data})
             }} className='h-6 w-6 text-red-500 cursor-pointer  -mt-2'/>
             

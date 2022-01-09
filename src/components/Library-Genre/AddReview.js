@@ -18,9 +18,8 @@ const AddReview=({addReview,data,postId,setShow})=>{
      className=' max-w-md  mx-auto bg-gray-800 rounded-lg px-4 pt-1 border-black border '
      onSubmit={async(e) => {
        e.preventDefault();
-       mutate(`/novels/postreview/${postId}/`, {...data})
        await axios.post(`/novels/postreview/${postId}/`, {rating,review})
-       mutate(`/novels/postreview/${postId}/`)
+       mutate({...data})
        setReview('');
        setRating(0);
        setShow(false)

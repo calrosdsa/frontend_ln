@@ -22,7 +22,7 @@ const PrivateRoute = ({
     window.scrollTo(0,0)
   },[])
   
-  const {data,mutate} = useSWR('profile/me', fetcher)
+  const {data,mutate} = useSWR('https://light-nvls.herokuapp.com/profile/me', fetcher)
    
   const handleLogout = () => {
     logout();

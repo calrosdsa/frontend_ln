@@ -76,7 +76,7 @@ import ReactStars from "react-rating-stars-component";
            className='mb-2 cursor-pointer md:mb-0 bg-indigo-500 md:px-6 md:py-3  py-0 h-12 text-base 
            shadow-sm font-medium tracking-wider text-white rounded-lg mx-4 w-4/6 hover:shadow-lg hover:bg-indigo-500'
            onClick={async() => {
-            await axios.post(`/novels/postcomment/${data?.id}/`, {body})
+            await axios.post(`https://light-nvls.herokuapp.com/novels/postcomment/${data?.id}/`, {body})
             mutate({...data})
             setOpen(false)
           }}
@@ -143,7 +143,7 @@ text-sm rounded-xl p  justify-center bg-indigo-600">
 <button 
 disabled={!auth.user}
 onClick={async()=>{
-await axios.post(`/novels/favorites-products/update/${data?.id}/`)
+await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
 mutate({...data})
 }} className="flex  justify-center items-center lg:hidden text-sm rounded-xl  bg-indigo-600">
      {!auth.user? (
@@ -235,7 +235,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            <button
            disabled={!auth}
            onClick={async()=>{
-            await axios.post(`/novels/favorites-products/update/${data?.id}/`)
+            await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
             mutate({...data})
           }} className={`flex  justify-center items-center p h-14 w-28 text-sm rounded-xl px-6
           bg-indigo-600`}>

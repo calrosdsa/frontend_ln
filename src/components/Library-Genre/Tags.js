@@ -30,7 +30,7 @@ function Tags({match, location}) {
   },[])
 
   const [pageIndex, setPageIndex] = useState(1);
-  const {data} = useSWR(`/novels/tag/${match.params.slug}/${location.search}&page=${pageIndex}`,fetcher)
+  const {data} = useSWR(`https://light-nvls.herokuapp.com/novels/tag/${match.params.slug}/${location.search}&page=${pageIndex}`,fetcher)
   const classes = useStyles();
   
   var Buttons = [];

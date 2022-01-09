@@ -22,7 +22,7 @@ export const loadUser = () => async (dispatch) => {
   } // if there is a token in the local storage then set it setAuthToken function to set in every request
 
   try {
-    const res = await axios.get('/api/v1/users/auth/user/');
+    const res = await axios.get('https://light-nvls.herokuapp.com/api/v1/users/auth/user/');
     // authenticate users in the backend. If there is a token available, the backend sends user infor as a response
     dispatch({
       type: USER_LOADED,
@@ -49,9 +49,7 @@ export const register =
 
     try {
       const res = await axios.post(
-        '/api/v1/users/auth/register/',
-        body,
-        config
+        'https://light-nvls.herokuapp.com/api/v1/users/auth/register/',{ username, email, password1, password2 }
       );
 
       dispatch({
@@ -95,7 +93,7 @@ export const login = (email, password) => async (dispatch) => {
   //We use axios to send a post request to /api/users to register.
   //The register action takes in the response from the '/api/users' backend using the post method and store it in the res variable
   try {
-    const res = await axios.post('/api/v1/users/auth/login/', { email, password });
+    const res = await axios.post('https://light-nvls.herokuapp.com/api/v1/users/auth/login/', { email, password });
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -163,7 +161,7 @@ export const changePassword =
 
     try {
       const res = await axios.post(
-        '/api/v1/users/auth/password/change/',
+        'https://light-nvls.herokuapp.com/api/v1/users/auth/password/change/',
         body,
         config
       );

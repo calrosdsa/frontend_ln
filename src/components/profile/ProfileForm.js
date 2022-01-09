@@ -51,8 +51,8 @@ const ProfileForm = ({
       uploadData.append('avatar', formData.avatar, formData.avatar.name);
     } 
 
-    mutate({...data})
-    await axios.post('/profile/',uploadData)
+    
+    await axios.post('https://light-nvls.herokuapp.com/profile/',uploadData)
     mutate({...data})
     setFormData(initialState)
   };

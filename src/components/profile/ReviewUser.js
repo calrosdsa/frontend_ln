@@ -42,7 +42,7 @@ function ReviewUser() {
               <div className="flex space-x-2 mr-7 items-center  space-x-4">
                   <div className="flex space-x-2 items-center">
               <svg onClick={async()=>{
-                mutate({...data})
+               
                 await axios.put(`https://light-nvls.herokuapp.com/novels/putreview/${item.id}/`)
                 mutate({...data})
               }} xmlns="http://www.w3.org/2000/svg" class="h-4 lg:h-5 lg:w-5 w-4 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">

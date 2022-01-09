@@ -52,8 +52,8 @@ function LibraryItem({nov,data,mutate,key}) {
                        <div className='pt-3 px-2 sm:px-3 lg:px-4'>
                            <div 
                            onClick={async()=>{
-                            mutate({...data})
-                            await axios.put(`/novels/option/${nov.id}/`,{'option': 2})
+                            
+                            await axios.put(`https://light-nvls.herokuapp.com/novels/option/${nov.id}/`,{'option': 2})
                             mutate({...data})
 
                             setOpen(false)
@@ -71,8 +71,8 @@ function LibraryItem({nov,data,mutate,key}) {
                            
                        <div className='pt-3 px-2 sm:px-3 lg:px-4'>
                            <div onClick={async()=>{
-                               mutate({...data})
-                               await axios.put(`/novels/option/${nov.id}/`,{'option': 3})
+                               
+                               await axios.put(`https://light-nvls.herokuapp.com/novels/option/${nov.id}/`,{'option': 3})
                                mutate({...data})
                                setOpen(false)
                            }} className='flex cursor-pointer hover:border-b-4 hover:border-indigo-500 md:px-4 py justify-between bg-white '>
@@ -87,8 +87,8 @@ function LibraryItem({nov,data,mutate,key}) {
                        <div className='pt-3 px-2 sm:px-3 lg:px-4'>
                            <div
                             onClick={async()=>{
-                                mutate({...data})
-                               await axios.post(`/novels/favorites-products/update/${nov.id}/`)
+                                
+                               await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${nov.id}/`)
                                mutate({...data})
                                setOpen(false)
                              }} 

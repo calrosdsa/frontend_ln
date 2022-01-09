@@ -57,7 +57,7 @@ function AdvancedFilter({location}) {
             "id": '-popular'
         },
     ]
-    const {data} = useSWR(`/novels/advancedfilter/${location.search}?`, fetcher,{revalidateIfStale:false,
+    const {data} = useSWR(`https://light-nvls.herokuapp.com/novels/advancedfilter/${location.search}?`, fetcher,{revalidateIfStale:false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false})
         const history = useHistory()
