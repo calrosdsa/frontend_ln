@@ -5,38 +5,38 @@ import PropTypes from 'prop-types';
 import { logout,loadUser } from '../../actions/auth';
 import {  Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+//import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { useDispatch } from 'react-redux';
-import { setWebsockets } from '../../actions/webSockets'; 
+//import { setWebsockets } from '../../actions/webSockets'; 
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) => {
   const [open, setOpen] = useState(false);
-  const [socketUrl, setSocketUrl] = useState('ws://127.0.0.1:8000/ws/notification/broadcast/');
-  const [messageHistory, setMessageHistory] = useState([]);
+  //const [socketUrl, setSocketUrl] = useState('ws://127.0.0.1:8000/ws/notification/broadcast/');
+  //const [messageHistory, setMessageHistory] = useState([]);
 
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
 
-  const {
-    lastMessage,
-    readyState,
-  } = useWebSocket(socketUrl);
+  //const {
+  //  lastMessage,
+//    readyState,
+  //} = useWebSocket(socketUrl);
   
   
-  useEffect(() => {
-    if (lastMessage !== null) {
-      dispatch(setWebsockets(lastMessage.data))
-      document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) + 1;
-    }
-}, [dispatch, lastMessage])
+  //useEffect(() => {
+    //if (lastMessage !== null) {
+      //dispatch(setWebsockets(lastMessage.data))
+    //  document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) + 1;
+  //  }
+//}, [dispatch, lastMessage])
 
  
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
+  //const connectionStatus = {
+    //[ReadyState.CONNECTING]: 'Connecting',
+    //[ReadyState.OPEN]: 'Open',
+    //[ReadyState.CLOSING]: 'Closing',
+    //[ReadyState.CLOSED]: 'Closed',
+    //[ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+  //}[readyState];
   
  
    
