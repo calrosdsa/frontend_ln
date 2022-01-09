@@ -20,7 +20,7 @@ const Posts = ({ }) => {
     }
 }
 
-  const {data , isLoading}  = useSWR(`/novels/ranking/`, fetcher )
+  const {data , isLoading}  = useSWR(`"https://light-nvls.herokuapp.com/novels/ranking/`, fetcher )
    if(isLoading) return <ReactLoading/>
 
   
