@@ -30,7 +30,7 @@ function Tags({match, location}) {
   },[])
 
   const [pageIndex, setPageIndex] = useState(1);
-  const {data} = useSWR(`https://light-nvls.herokuapp.com/novels/tag/${match.params.slug}/${location.search}&page=${pageIndex}`,fetcher)
+  const {data} = useSWR(`https://light-nvls.herokuapp.com/novels/tag/${location.search}`,fetcher)
   const classes = useStyles();
   
   var Buttons = [];
@@ -59,6 +59,7 @@ function Tags({match, location}) {
                 <h1 className=' uppercase text-gray-400 py text-2xl'>{match.params.slug} Tagged Light Novels</h1>
                 <div className="text-2xl">
     <h1 className="border-b-2 w-40 pb-2 border-gray-400 text-gray-400">Sorted By</h1>
+    
       <Button
         component={Link}
         to={appendQuery(location, { ordering: "-created" })}
@@ -70,10 +71,10 @@ function Tags({match, location}) {
       </Button>
       <Button
         component={Link}
-        to={appendQuery(location, { ordering: "-updated" })}
+        to={appendQuery(location, { ordering: "-update_at" })}
         className={classes.button}
         color="primary"
-        variant={data?.ordering === "-updated" ? "contained" : "outlined"}
+        variant={data?.ordering === "-update_at" ? "contained" : "outlined"}
         >
         Updated
       </Button>
@@ -93,7 +94,8 @@ function Tags({match, location}) {
         <Grid item>
 
             <Button
-            onClick={() => setPageIndex(pageIndex - 1)}
+            component={Link}
+            to={`/tag/${match.params.slug}${data?.previous}`}
             disabled={data?.previous === null}
             variant="contained"
             color = 'primary'

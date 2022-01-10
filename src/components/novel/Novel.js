@@ -324,7 +324,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            <div className=" lg:space-x-5 flex-wrap flex ">
            {data?.tags.map((item)=>(
              <div className="bg-gray-700  rounded-lg p m">
-             <Link to={(`/tag/${encodeURIComponent(item.slug)}/?ordering=-popular&`)}>
+             <Link to={`/tag?tags=${item.id}`}>
                  <h1>{item.title}</h1>
                </Link>
            </div>

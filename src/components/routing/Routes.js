@@ -33,7 +33,7 @@ const Routes = () => {
         <Route exact path='/library' component={Library}/>
         <Route exact path='/chapters/:slug' component={NovelsChapter}/>
         <Route exact path='/genre' component={Genre}/>
-        <Route exact path='/tag/:slug' component={Tags}/>
+        <Route exact path='/tag' component={Tags}/>
         <Route exact path='/reviews/:slug' component={Review}/>
         <Route exact path='/history' component={History}/>
         <Route exact path='/search' component={Search}/>
