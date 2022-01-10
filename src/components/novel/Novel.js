@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { useEffect,Fragment,useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect,Fragment,useState,useRef } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import useSWR from 'swr'
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
@@ -25,7 +25,7 @@ import ReactStars from "react-rating-stars-component";
     }
 
     const {data,mutate}  = useSWR(`https://light-nvls.herokuapp.com/novels/detail/${match.params.slug}/`, fetcher )
-     
+    const buttonRef = useRef()
     const [open,setOpen]=useState(false)
     const [added,setAdded]= useState(false)
     
@@ -41,6 +41,20 @@ import ReactStars from "react-rating-stars-component";
     }
   }, [data,auth]);
   
+  function commentClick(){
+    if (!auth.user){
+      buttonRef.current.textContent = 'Login First!'
+    }else{
+      setOpen(true)
+    }
+//      setOpen(true)
+  }
+//  useEffect(()=>{
+  //  setTimeout(()=>{
+    //buttonRef.current.textContent = 'Login First'
+    //},5000)
+  //},[])
+ 
   return(
     <Fragment>
  
@@ -164,37 +178,37 @@ mutate({...data})
             }
 </button>
            <div className="flex flex-col bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
-           <h1 className="text-base text-gray-200">Chapters:</h1>
+           <h1 className="text-base text-gray-400 font-semibold">Chapters:</h1>
            <div className="flex items-center space-x-3 ">
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd" />
           </svg>
-           <h1 className="text-2xl font-bold">{data?.chapters}</h1>
+           <h1 className="text-2xl font-bold text-gray-400">{data?.chapters}</h1>
            </div>
          </div>
          <div className="bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
-           <h1 className="lg:ml-5">Views</h1>
+           <h1 className="lg:ml-5 text-gray-400 font-semibold">Views</h1>
            <div className="lg:ml-5 flex space-x-3 items-center">
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
            </svg>
-           <h1 className="text-2xl font-bold lg:ml-3" >{numFormatter(data?.novel_views)}</h1>
+           <h1 className="text-2xl font-bold lg:ml-3 text-gray-400" >{numFormatter(data?.novel_views)}</h1>
          </div>
            </div>
 
 
            <div className="bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
-           <h1 className="text-base lg:ml-5 text-gray-200">BookMarket:</h1>
+           <h1 className="text-base lg:ml-5 text-gray-400 font-semibold">BookMarket:</h1>
            <div className="flex lg:ml-5 items-center">
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" viewBox="0 0 20 20" fill="currentColor">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
            </svg>
-           <h1 className="text-2xl font-bold lg:ml-2" >{data?.book_marked.length}</h1>
+           <h1 className="text-2xl font-bold lg:ml-2 text-gray-400" >{data?.book_marked.length}</h1>
            </div>
            </div>
            <div className="bg-gray-700 m  lg:bg-transparent  lg:rounded-none  p rounded-xl">
-           <h1 className="text-base lg:ml-5 text-gray-200">Status:</h1>
+           <h1 className="text-base lg:ml-5 text-gray-400 font-semibold">Status:</h1>
            <div className="flex lg:ml-5 items-center">
            <h1 className="text-2xl text-red-500 font-bold lg:ml-2" >{data?.statuss}</h1>
            </div>
@@ -321,13 +335,15 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
        <div className={`flex flex-col relative  mt-24 gap-y-3 lg:w-4/5 lg:mx-auto  ${open&& ''} `}>
            <div className=" justify-between items-center flex w-full sm:w-5/6 mx-auto">
          <h2 className='text-base sm:text-xl lg:text-3xl  font-bold'>User Comments</h2>
-         <button onClick={()=>setOpen(!open)}
+         <button ref={buttonRef}  onClick={()=>commentClick()}
           className=" bg-gradient-to-l from-blue-300  to-blue-400 text-base font-semibold hover:scale-105
            transform hover:transition-all hover:duration-700 text-gray-100 p-1 rounded-lg ">
             WRITHE COMMENT</button>
                    
            </div>
-
+         <span className="ml-1" id="username-taken" style={{ color: '#f00', display: 'none', fontWeight: 'bold' }}>
+           Nome de usuário já existe</span>
+    
         <p className="w-full sm:w-5/6 mx-auto bg-gray-800 p-1 border-2 border-gray-700 font-medium text-sm sm:text-base">It is used only as a discussion area. If you want to evaluate and score, use the "Write Review" field.
 Posting insults, swearing or links in the comments is strictly prohibited.
 The responsibility for the content in the comments belongs entirely to the user and certainly the LNP platform cannot be held responsible.</p>

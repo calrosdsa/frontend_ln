@@ -10,6 +10,8 @@ import NovelItem from './NovelItem';
 import useSWR from 'swr';
 import { fetcher } from '../novel/Review';
 const Posts = ({ }) => {
+
+
   function numFormatter(num) {
     if(num > 999 && num < 1000000){
         return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
@@ -25,6 +27,13 @@ const Posts = ({ }) => {
 
   
   return  (
+    <Fragment>
+        {!data? (
+              <div className='w-full h-screen  bg-gray-800 flex  justify-center sm:pt-32 md:pt-40 '>
+              <ReactLoading type='bars' color='#fff' width={300} />
+            </div>
+            ):(
+
     <div className="bg-gray-900 relative pt-2">
        <div className="w-full  z-20 px-2 md:w-3/4 mt-5 sm:px-10 justify-center md:mx-auto">
 <Banner/>
@@ -35,26 +44,26 @@ const Posts = ({ }) => {
       <Link as="fetch" crossorigin="anonymous" rel='preload' to ='/genre/?ordering=-created'
        className='text-md font-medium text-indigo-400'>View More</Link>
       </div>
-      <div className='grid grid-cols-3 sm:grid-cols-4 gap-1  lg:grid-cols-5   xl:grid-cols-6  rounded-xl 
+      <div className='grid grid-cols-3 sm:grid-cols-4 gap-x-1  lg:grid-cols-5   xl:grid-cols-6  rounded-xl 
        pb-10 pl-1 place-items-center '>
          
         {data?.posts.map((post) => (
-            <NovelItem key={post.id} post={post}/>
-            ))}
+          <NovelItem key={post.id} post={post}/>
+          ))}
             </div>
       <div className='lg:grid lg:grid-cols-3 flex flex-col lg:-mx-20  bg-gray-800 
        md:gap-2 gap-1  my-10 
-         rounded-xl  pb-10 pl-1 place-items-center '>
+       rounded-xl  pb-10 pl-1 place-items-center '>
 
 
       <div className="bg-gray-800 relative pt-2">
      <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>Most Read</h1>
        <div className='grid grid-cols-2  w-full lg:flex lg:flex-col gap-x-1 sm:gap-x-6  lg:gap-x-0'>
      {data?.popular.map((item)=>(
-             <Link  to={`/novel/${item.slug}`}>
+       <Link  to={`/novel/${item.slug}`}>
 
          <div key={item.id} className='grid grid-cols-4 my'>
-         <div className='pr-1 col-start-1 place-self-end'>
+           <div className='pr-1 col-start-1 place-self-end'>
              <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
          <div className='col-start-2 col-span-3'>
@@ -87,7 +96,7 @@ const Posts = ({ }) => {
         <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>Trends</h1>
        <div className='grid grid-cols-2 lg:flex lg:flex-col gap-x-2 sm:gap-x-6  lg:gap-x-0'>
      {data?.trends.map((item)=>(
-             <Link to={`/novel/${item.slug}`}>
+       <Link to={`/novel/${item.slug}`}>
 
 
          <div key={item.id} className='grid grid-cols-4 my'>
@@ -100,7 +109,7 @@ const Posts = ({ }) => {
        </h1>
        <div className='flex items-center space-x-2 text-sm text-gray-400'>
        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="currentColor">
-  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
+         <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
         </svg>
          <h1 className='text-xs sm:text-sm'>{item.commentss} Comments</h1>
        </div>
@@ -123,7 +132,7 @@ const Posts = ({ }) => {
        <h1 className='bg-blue-600 text-white font-bold text-lg rounded-lg p-1 my-2  w-48'>User Rated</h1>
        <div className='grid grid-cols-2 lg:flex lg:flex-col gap-x-2 sm:gap-x-6  lg:gap-x-0'>
      {data?.rated.map((item)=>(
-             <Link to={`/novel/${item.slug}`}>
+       <Link to={`/novel/${item.slug}`}>
 
          <div key={item.id} className='grid grid-cols-4 my'>
          <div className=' pr-1 col-start-1 place-self-end'>
@@ -171,7 +180,7 @@ const Posts = ({ }) => {
          
         {data?.weekly.map((post) => (
           <NovelItem key={post.id} post={post}/>
-            ))}
+          ))}
       </div>
       
       <div className='flex  justify-between  border-b my-2 border-gray-500 mx-auto '>
@@ -193,7 +202,7 @@ const Posts = ({ }) => {
       </div>
       <div className='lg:grid lg:grid-cols-3 lg:grid-rows-8  flex flex-col lg:-mx-20  bg-gray-800 
        md:gap-2 gap-1  my-10 
-         rounded-xl  pb-10 pl-1 place-items-center p-1 '>
+       rounded-xl  pb-10 pl-1 place-items-center p-1 '>
 
            {data?.chapters.map(item=>(
               <div key={item.id } className='flex flex-row my'>
@@ -214,9 +223,9 @@ const Posts = ({ }) => {
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
             <span >  {formatDistanceToNow(
-                    new Date(moment.utc(item.created_at).local().format()),
-                    {
-                      addSuffix: true,
+              new Date(moment.utc(item.created_at).local().format()),
+              {
+                addSuffix: true,
                     }
                     )}</span>
             </div>
@@ -230,6 +239,8 @@ const Posts = ({ }) => {
             </div>
             <Footer/>
     </div>
+    )}
+    </Fragment>
   );
 };
 
