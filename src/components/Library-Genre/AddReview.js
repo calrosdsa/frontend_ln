@@ -14,16 +14,9 @@ const AddReview=({addReview,data,postId,setShow})=>{
 
     return(
         <div className=''>
-        <form
+        <div
      className=' max-w-md  mx-auto bg-gray-800 rounded-lg px-4 pt-1 border-black border '
-     onSubmit={async(e) => {
-       e.preventDefault();
-       await axios.post(`/novels/postreview/${postId}/`, {rating,review})
-       mutate({...data})
-       setReview('');
-       setRating(0);
-       setShow(false)
-     }}
+    
    >
      <div className='flex flex-wrap -mx-3  mb-6'>
        <div className="flex items-center  ">
@@ -71,15 +64,22 @@ const AddReview=({addReview,data,postId,setShow})=>{
            </p>
          </div>
          <div className='-mr-1'>
-           <input
-             type='submit'
+           <buttom
              className='bg-blue-500 p xl:text-xl xl:p-2 rounded-xl xl:w-56 '
-             value='Post Review'
-           />
+             onClick={async(e) => {
+              e.preventDefault();
+              await axios.post(`/novels/postreview/${postId}/`, {rating,review})
+              mutate({...data})
+              setReview('');
+              setRating(0);
+              setShow(false)
+            }}
+            
+           >Post Review</buttom>
          </div>
        </div>
      </div>
-   </form>
+   </div>
        </div>
     )
 }

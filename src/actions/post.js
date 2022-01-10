@@ -36,6 +36,24 @@ export const getFilter = (query) => async (dispatch) => {
     });
   }
 };
+export const getFilterTag = (query) => async (dispatch) => {
+  // if (localStorage.token) {
+  //   setAuthToken(localSorage.token); // This needs to be included in GET requests or django will reject it!!!
+  // }
+  try {
+    const res = await axios.get(`https://light-nvls.herokuapp.com/novels/tag/${query}`);
+
+    dispatch({
+      type: GET_FILTER,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
 export const getRanked = () => async (dispatch) => {
   // if (localStorage.token) {

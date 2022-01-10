@@ -11,6 +11,9 @@ import { fetcher } from '../novel/Review'
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { appendQuery,removeQuery } from "../../utils/utils";
+import { getFilterTag } from '../../actions/post';
+import { useDispatch,useSelector } from 'react-redux';
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -28,23 +31,26 @@ function Tags({match, location}) {
   useEffect(()=>{
     window.scrollTo(0,0)
   },[])
-
-  const [pageIndex, setPageIndex] = useState(1);
-  const {data} = useSWR(`https://light-nvls.herokuapp.com/novels/tag/${location.search}`,fetcher)
+  const dispatch = useDispatch()
   const classes = useStyles();
-  
+  const novels = useSelector(state => state.filter.novels)
+  const {current, next, previous, pages_count ,ordering}= useSelector(state => state.filter)
+  useEffect(()=>{
+  dispatch(getFilterTag(location.search))
+  },[dispatch,location.search])
   var Buttons = [];
-  if (data?.pages_count) {
-    for (let i = 1; i < data?.pages_count + 1; i++ ) {
+  if (pages_count) {
+    for (let i = 1; i <pages_count + 1; i++ ) {
       Buttons.push(
         <Button
           key={i}
           variant="contained"
+          component={Link}
+          to={appendQuery(location, { page: i })}
           color = 'primary'
-          onClick={() => setPageIndex(i)}
           className={classes.button}
           size="small"
-          color={i === pageIndex ? "default" : "default"}
+          color={i === current ? "default" : "default"}
         >
           
           {i}
@@ -59,13 +65,12 @@ function Tags({match, location}) {
                 <h1 className=' uppercase text-gray-400 py text-2xl'>{match.params.slug} Tagged Light Novels</h1>
                 <div className="text-2xl">
     <h1 className="border-b-2 w-40 pb-2 border-gray-400 text-gray-400">Sorted By</h1>
-    
       <Button
         component={Link}
         to={appendQuery(location, { ordering: "-created" })}
         className={classes.button}
         color="primary"
-        variant={data?.ordering === "-created" ? "contained" : "outlined"}
+        variant={ordering === "-created" ? "contained" : "outlined"}
         >
         New
       </Button>
@@ -74,7 +79,7 @@ function Tags({match, location}) {
         to={appendQuery(location, { ordering: "-update_at" })}
         className={classes.button}
         color="primary"
-        variant={data?.ordering === "-update_at" ? "contained" : "outlined"}
+        variant={ordering === "-update_at" ? "contained" : "outlined"}
         >
         Updated
       </Button>
@@ -83,7 +88,7 @@ function Tags({match, location}) {
         to={appendQuery(location, { ordering: "-popular" })}
         className=''
         color="primary"
-        variant={data?.ordering === "-popular" ? "contained" : "outlined"}
+        variant={ordering === "-popular" ? "contained" : "outlined"}
         >
         Popular
       </Button>
@@ -95,8 +100,8 @@ function Tags({match, location}) {
 
             <Button
             component={Link}
-            to={`/tag/${match.params.slug}${data?.previous}`}
-            disabled={data?.previous === null}
+            to={`/tag/${previous}`}
+            disabled={previous === null}
             variant="contained"
             color = 'primary'
             className={classes.button}
@@ -106,8 +111,9 @@ function Tags({match, location}) {
           </Button>
           {Buttons}
           <Button
-            disabled={data?.next === null}
-            onClick={() => setPageIndex(pageIndex + 1)}
+            disabled={next === null}
+            component={Link}
+            to={`/tag/${next}`}
             variant="contained"
             color = 'primary'
             size="small"
@@ -120,7 +126,7 @@ function Tags({match, location}) {
 
                 </div>
                 <div className='grid grid-cols-1 mt-4 md:grid-cols-2 mx-auto'>
-                {data?.novels.map(item=>(
+                {novels.map(item=>(
                       <div className="flex p">
                       <Link to={`/novel/${item.slug}`} >
                       <img src={item.cover} className="h-28 w-20 rounded-lg" alt="" />

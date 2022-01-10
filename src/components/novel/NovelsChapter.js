@@ -58,19 +58,20 @@ const NovelsChapters = ({ history, location,match }) => {
         <img src={data?.novel.cover} className='h-32 w-24 rounded-lg' alt="" />
         <div>
           <Link to={`/novel/${encodeURIComponent(data?.novel.slug)}`} className=' text-2xl text-indigo-300 font-medium mt-2 '>{data?.novel.title}</Link>
-          <h2 className=' text-gray-400 mt-2'>Update {formatDistanceToNow(
-            new Date(moment.utc(data?.novel.updated).local().format()),
-            {
-              addSuffix: true,
-            }
-            )}</h2>
+          <h2 className=' text-gray-400 mt-2'>Update
+          {moment(data?.novel.updated, 'DD-MM-YYY h:mm').format('MMM D, HH:mm:ss')}
+          </h2>
            <h1 className=' text-gray-400 -mt-1'>Status: {data?.novel.statuss}</h1>
         </div>
             </div>
 
            <h1 className='text-gray-400 text-2xl '>  {data?.novel.title} Novel Chapters</h1>
            <p className='text-gray-400'>List of most recent chapters published for {data?.novel.title} novel. A total of {data?.novel.chapters} chapters
-              have been translated and the release date of the last chapter is Nov 29, 2021</p>
+              have been translated and the release date of the last chapter is 
+              {formatDistanceToNow(
+            new Date(moment.utc(data?.novel.updated).local().format('MMM d, HH:mm:ss'))
+            )}
+              </p>
 
       </div>
 

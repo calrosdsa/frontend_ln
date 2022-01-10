@@ -30,7 +30,7 @@ import ReactStars from "react-rating-stars-component";
     const [added,setAdded]= useState(false)
     
     const [body, setBody] = useState(''); 
-    const avg = parseFloat(data?.average)
+    const avg = parseFloat(data?.average).toFixed(1)
     useEffect(() => {
       if(!data) return;
       if(!auth.user) return;
@@ -118,21 +118,19 @@ import ReactStars from "react-rating-stars-component";
          <h1>{data?.authors}</h1>
          
          <div className="flex items-center space-x-2 md:w-96">
-           {data?.rank &&(
              <div className='flex items-center space-x-3'>
                <strong className="text-yellow-300 font-bold text-lg">RANK {data?.rank}</strong>
+               {data?.average&& 
                <ReactStars
-               value={avg}
+               value={data?.average}
                count={5}
                isHalf={true}
                edit={false}
                size={25}
                />
+              }
                <h1 className=" font-semibold mx-2 text-2xl w-16 truncate ">{data?.average}</h1>
              </div>
-         
-        
-           )}
          </div>
 
          <div className=" mb-1 mt-1 lg:flex gap-x-2  lg:divide-x-2 grid grid-cols-2 ">
@@ -324,7 +322,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            <div className=" lg:space-x-5 flex-wrap flex ">
            {data?.tags.map((item)=>(
              <div className="bg-gray-700  rounded-lg p m">
-             <Link to={`/tag?tags=${item.id}`}>
+             <Link to={`/tag/?tags=${item.id}`}>
                  <h1>{item.title}</h1>
                </Link>
            </div>

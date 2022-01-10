@@ -1,7 +1,9 @@
 import { useEffect,Fragment,useState,useRef } from 'react'
-import ReactLoading from 'react-loading'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
+import { useHistory } from 'react-router-dom'
 import useSWR from 'swr'
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
@@ -11,10 +13,25 @@ export const fetcher = url => axios.get(url).then(res => res.data)
    
       const {data,trigger,mutate}  = useSWR(`https://light-nvls.herokuapp.com/novels/postreview/${match.params.slug}/`, fetcher )
 
-    const headerRef = useRef()
+    const reviewRef = useRef()
     const [show,setShow]=useState(false)
     const [rating,setRating] = useState()
     const [review,setReview] = useState('')
+    const user = useSelector(state => state.auth.user)
+    const history = useHistory()
+
+    const handleAuth=()=>{
+      if( reviewRef.current.textContent === 'Login'){
+        history.push('/login')
+      }
+      if (!user){
+       reviewRef.current.textContent = 'Login'
+      }else{
+        setShow(true)
+      }
+      
+      
+    }
    
   
     return(
@@ -95,7 +112,7 @@ export const fetcher = url => axios.get(url).then(res => res.data)
  <div className="flex p-1 border-b-2 pb-2  border-gray-600 items-center  ">
  <img className="h-20 rounded-lg w-14 lg:h-28 lg:w-20" src={data?.cover} alt="" />
  <div className="ml-3 lg:ml-6 ">
- <h1 className="text-indigo-400  sm:text-xl lg:text-2xl text-lg font-semibold">{data?.title}</h1>
+ <Link to={`/novel/${encodeURIComponent(data?.slug)}`} className="text-indigo-400  sm:text-xl lg:text-2xl text-lg font-semibold">{data?.title}</Link>
  <div className="flex items-center">
  <img className="w-5 h-5 md:w-7 md:h-7 text-gray-400  " src="https://img.icons8.com/ios-glyphs/60/000000/crown.png"/>
  <h1 className="text-sm mx-2 md:text-lg  text-gray-400">Rank {data?.rank}</h1>
@@ -129,7 +146,7 @@ export const fetcher = url => axios.get(url).then(res => res.data)
          )}
 </div>
 <div>
-<button onClick={()=>setShow(!show)} className=' cursor-pointer bg-indigo-600 p-0 w-20 sm:w-32 xl:w-64 
+<button ref={reviewRef} onClick={()=>handleAuth()} className=' cursor-pointer bg-indigo-600 p-0 w-20 sm:w-32 xl:w-64 
  sm:py-3 xl:text-xl rounded-lg text-sm'>
 WRITE A REVIEW</button>
 </div>
@@ -155,16 +172,16 @@ edit={false}
 value={item?.rating}
 />
 </div>
-<p className="text-xs  lg:text-base mr-10"> {formatDistanceToNow(
+</div>
+<h1 className="w-full my-1 pb-1  text-sm md:text-base lg:text-lg  text-white">{item?.review}</h1>
+<div className="flex justify-between mx-2  border-gray-700 border-b-2  pb-3">
+
+<p className="text-xs text-gray-400  lg:text-sm mr-10">Posted {' '} {formatDistanceToNow(
 new Date(moment.utc(item?.date_added).local().format()),
 {
  addSuffix: true,
 }
 )}</p>
-</div>
-<h1 className="w-full my-1 pb-1  text-xs sm:text-sm lg:text-lg  text-white">{item?.review}</h1>
-<div className="flex justify-between mx-2  border-gray-700 border-b-2  pb-3">
- <button className="border-indigo-600 border-2 text-indigo-700 rounded-md p-0 text-xs lg:text-base">View Details</button>
  <div className="flex space-x-2 mr-7 items-center  space-x-4">
      <div className="flex space-x-2 items-center">
  <svg onClick={async()=>{
