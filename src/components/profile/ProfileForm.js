@@ -4,11 +4,6 @@ import { Link,Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const initialState = {
-  bio: '',
-  avatar: null,
-  name: '',
-};
 
 const ProfileForm = ({
   auth: { user },
@@ -16,6 +11,11 @@ const ProfileForm = ({
   data,
 }) => {
   
+  const initialState = {
+    bio: data?.bio,
+    avatar: data?.avatar,
+    name: data?.name,
+  };
   const [formData, setFormData] = useState(initialState);
   
   const [contentBase64, setContentBase64] = useState(data?.avatar);
@@ -48,13 +48,12 @@ const ProfileForm = ({
     if (typeof formData.avatar === 'string') {
       uploadData.append('avatar', ''); // the empty field tells Django backend to NOT change the avatar field in the DB
     } else {
-      uploadData.append('avatar', formData.avatar, formData.avatar.name);
+      uploadData.append('avatar', formData.avatar);
     } 
 
     
     await axios.post('https://light-nvls.herokuapp.com/profile/',uploadData)
     mutate({...data})
-    setFormData(initialState)
   };
   
   return (
@@ -86,7 +85,8 @@ const ProfileForm = ({
                         />
                     </div>
                     <label className='cursor-pointer '>
-                      <span className='focus:outline-none  text-white text-sm py-4 px-4 rounded-full bg-indigo-600 hover:bg-indigo-500 hover:shadow-lg'>
+                      <span className='focus:outline-none  text-white text-sm py-4 px-4 rounded-lg bg-indigo-600 
+                      hover:bg-indigo-500 hover:shadow-lg'>
                         Browse
                       </span>
                       <input
@@ -130,7 +130,6 @@ const ProfileForm = ({
                 <textarea
                   required='required'
                   className='w-full h-28 p-1 mb-3 rounded-lg border-2 bg-gray-900 border-gray-200 outline-none focus:border-indigo-600'
-                  placeholder={data?.bio}
                   name='bio'
                   value={bio}
                   onChange={onChange}
@@ -144,8 +143,7 @@ const ProfileForm = ({
                 <button
                   disabled={user && user.username == 'guest' ? true : false}
                   type='submit'
-                  className='mb-2 md:mb-0 bg-indigo-600 md:px-6 md:py-3 px-5 py-2 text-sm shadow-sm font-medium 
-                  tracking-wider text-white rounded-full hover:shadow-lg hover:bg-indigo-500'
+                  className=' rounded-lg p-1 bg-indigo-400'
                 >
                   {user && user.username == 'guest' ? (
                     <>Sorry, Guests cannot edit</>

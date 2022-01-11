@@ -321,7 +321,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout,loadUser }) =
                             <Link
                               onClick={() => setOpen(false)}
                               className='block p-1 mb-3 leading-loose text-xs text-center font-semibold bg-gray-900 hover:bg-gray-900 rounded-xl'
-                              to='/settings'
+                              to='/profile'
                               >
                               Account Settings
                             </Link>

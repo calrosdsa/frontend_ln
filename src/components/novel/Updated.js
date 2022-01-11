@@ -22,13 +22,13 @@ function Updated({location}) {
                 </div>
                 <Pagination current={data?.current} previous={data?.previous} pages_count={data?.pages_count}
                     next={data?.next} pageIndex={pageIndex} setPageIndex={setPageIndex} location={location}/>
-            <div className='sm:grid sm:grid-cols-2 justify-center place-items-start flex flex-col my-1'>
+            <div className='sm:grid sm:grid-cols-2  my-1'>
             {data?.results.map(item=>(
-                <div className='grid grid-cols-4  gap-1 md:m my'>
-                    <Link className='col-start-1 sm:place-self-end ' to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
+                <div className='grid grid-cols-4  gap-2 md:m my'>
+                    <Link className='col-start-1 place-self-end ' to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
                     <img src={item.novel_cover} className='w-14 h-20' alt="" />
                     </Link>
-                    <div className='col-start-2 col-span-3 place-self-start'> 
+                    <div className='col-start-2 col-span-3 '> 
                         <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} 
                         className='text-gray-200  text-sm lg:w-72 xl:w-96
                          line-clamp-1'>{item.novel_title}</Link>
@@ -39,7 +39,7 @@ function Updated({location}) {
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
-                        <h1 className='text-sm   text-gray-400'>Update {formatDistanceToNow(
+                        <h1 className='text-sm line-clamp-1 text-gray-400'>Update {formatDistanceToNow(
                             new Date(moment.utc(item.created_at).local().format()),
                             {
                                 addSuffix: true,

@@ -315,7 +315,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            
            <div className="lg:w-4/5 lg:mx-auto">
            <h1 className="text-3xl border-b-2 p border-gray-500 my-4 font-semibold text-gray-500">Sumary</h1>
-           <h1 className=" whitespace-pre-line text-base tracking-wider mx-5">{data?.sumary}</h1>
+           <p className=" whitespace-pre-line text-base mx-5">{data?.sumary}</p>
            </div>
            <div className="mt-10 lg:w-4/5 lg:mx-auto">
            <h1 className="text-3xl border-b-2 p border-gray-500 my-4 font-semibold text-gray-500">Tags</h1>
