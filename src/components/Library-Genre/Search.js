@@ -100,7 +100,8 @@ function Search() {
                 </div>
                 <h1 className='text-gray-400 font-semibold text-2xl px-10 border-b-2 border-gray-400  my-1'>Some Popular Novels</h1>
 
-                <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 pb-20 3xl:grid-cols-6'>
+                <div className='grid grid-cols-3 md:gap-3 gap-2 lg:gap-4 lg:px-3 xl:px-10 2xl:pt-10 sm:grid-cols-4 
+                lg:grid-cols-5 pb-20 3xl:grid-cols-6'>
                 {data?.popular.map(post=>(
                     <div >
                        <NovelItem post={post}/>

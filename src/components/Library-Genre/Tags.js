@@ -125,22 +125,24 @@ function Tags({match, location}) {
       </Grid>
 
                 </div>
-                <div className='grid grid-cols-1 mt-4 md:grid-cols-2 mx-auto'>
+                <div className='grid grid-cols-1 gap-1 sm:gap-2 mt-4 md:grid-cols-2 mx-auto'>
                 {novels.map(item=>(
-                      <div className="flex p">
-                      <Link to={`/novel/${item.slug}`} >
+                      <div className=" grid grid-cols-4">
+                      <Link className=' col-start-1 place-self-end ' to={`/novel/${item.slug}`} >
                       <img src={item.cover} className="h-28 w-20 rounded-lg" alt="" />
                       </Link>
-                      <div className="mx-2">
-                        <Link to={`/novel/${item.slug}`} className=" text-base font-semibold">{item.title}</Link>
+                      <div className="mx-2  col-span-3">
+                        <Link to={`/novel/${item.slug}`} className=" text-indigo-400 line-clamp-1 text-base font-semibold">{item.title}</Link>
                         <div className='flex items-center space-x-2 -my-1'>
+                {item.average&&
                <ReactStars
-                    value={item.average}
-                    count={5}
-                    isHalf={true}
-                    edit={false}
-                    size={20}
-                    />
+               value={item.average}
+               count={5}
+               isHalf={true}
+               edit={false}
+               size={20}
+               />
+              }
                <h1 className=' text-indigo-400'>({item.average}) {item.reviews}</h1>
                     </div>
                     <div className="flex items-center text-sm pl-2 ">

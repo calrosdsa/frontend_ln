@@ -50,13 +50,15 @@ const NovelsChapterz = ({ location }) => {
               <div className="mx-2 col-start-2 col-span-3">
                 <Link to={`/novel/${item.slug}`} className=" line-clamp-1 text-base font-semibold">{item.title}</Link>
                 <div className='flex items-center space-x-2 -my-1'>
+       {item.average&&
        <ReactStars
-            value={item.average}
+       value={item.average}
             count={5}
             isHalf={true}
             edit={false}
             size={20}
             />
+          }           
        <h1 className=' text-indigo-400'>({item.average}) {item.reviews}</h1>
             </div>
             <div className="flex items-center  ">
@@ -83,6 +85,7 @@ const NovelsChapterz = ({ location }) => {
              <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
             </svg>
                    {moment(new Date(item.updated)).format('MMM d, HH:mm:ss')}
+                   {moment(item.updated, 'DD-MM-YYY h:mm').format('MMM D, HH:mm:ss')}
                  </div>
             </div>
 

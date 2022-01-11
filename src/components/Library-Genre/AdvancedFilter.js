@@ -33,7 +33,7 @@ function AdvancedFilter({location}) {
         },
         {
             "ordering": "Rank",
-            "id": '-rank' 
+            "id": 'rank' 
         },
         {
             "ordering": "Last Updates",
@@ -41,7 +41,7 @@ function AdvancedFilter({location}) {
         },
         {
             "ordering": "Book Marked",
-            "id": '-book_marked'
+            "id": '-count_book_marked'
         },
         {
             "ordering": "Rating",

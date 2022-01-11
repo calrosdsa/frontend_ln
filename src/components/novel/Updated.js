@@ -24,15 +24,16 @@ function Updated({location}) {
                     next={data?.next} pageIndex={pageIndex} setPageIndex={setPageIndex} location={location}/>
             <div className='sm:grid sm:grid-cols-2 justify-center place-items-start flex flex-col my-1'>
             {data?.results.map(item=>(
-                <div className='grid grid-cols-4  md:m my'>
-                    <Link className='col-start-1 ' to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
+                <div className='grid grid-cols-4  gap-1 md:m my'>
+                    <Link className='col-start-1 sm:place-self-end ' to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
                     <img src={item.novel_cover} className='w-14 h-20' alt="" />
                     </Link>
                     <div className='col-start-2 col-span-3 place-self-start'> 
                         <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} 
-                        className='text-gray-200  text-sm
+                        className='text-gray-200  text-sm lg:w-72 xl:w-96
                          line-clamp-1'>{item.novel_title}</Link>
-                        <Link to={`/chapter/${encodeURIComponent(item.slug)}`} className='text-indigo-400 sm:w-40 md:w-64 xl:w-96 text-sm
+                        <Link to={`/chapter/${encodeURIComponent(item.slug)}`} className='text-indigo-400 w-32 sm:w-44 lg:w-64 
+                         text-sm
                          line-clamp-1'>{item.title}</Link>
                         <div className='flex items-center space-x-2'>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
