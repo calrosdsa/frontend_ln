@@ -29,13 +29,13 @@ const Posts = ({ }) => {
   return  (
     <Fragment>
         {!data? (
-              <div className='w-full h-screen  bg-gray-800 flex  justify-center sm:pt-32 md:pt-40 '>
+              <div className='w-full h-screen  bg-gray-800 flex  justify-center sm:pt-56 '>
               <ReactLoading type='bars' color='#fff' width={300} />
             </div>
             ):(
 
     <div className="bg-gray-900 relative pt-2">
-       <div className="w-full  z-20 px-2 md:w-3/4 mt-5 sm:px-10 justify-center md:mx-auto">
+       <div className="w-full  z-20 px-2 sm:w-11/12 md:w-3/4 mt-5 sm:px-10 justify-center sm:mx-auto">
 <Banner/>
 
       
@@ -44,7 +44,7 @@ const Posts = ({ }) => {
       <Link as="fetch" crossorigin="anonymous" rel='preload' to ='/genre/?ordering=-created'
        className='text-md font-medium text-indigo-400'>View More</Link>
       </div>
-      <div className='grid grid-cols-3 sm:grid-cols-4 gap-x-1  lg:grid-cols-5   xl:grid-cols-6  rounded-xl 
+      <div className='grid grid-cols-3 sm:grid-cols-4 gap-x-2  lg:grid-cols-5   xl:grid-cols-6  rounded-xl 
        pb-10 pl-1 place-items-center '>
          
         {data?.posts.map((post) => (
@@ -64,7 +64,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
            <div className='pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-14 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
          <div className='col-start-2 col-span-3'>
        <h1 className='text-xs sm:text-sm  truncate  sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
@@ -101,7 +101,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
          <div className='pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-14 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
          <div className='col-start-2 col-span-3 mt-2 sm:mt-1'>
        <h1 className='text-xs sm:text-sm  truncate  text-gray-400   font-bold '>
@@ -136,7 +136,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
          <div className=' pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-14 sm:w-12 rounded-lg' src={item.cover} alt="" />
          </div>
          <div className='col-start-2 col-span-3'>
        <h1 className='text-xs sm:text-sm  truncate text-gray-400   font-bold '>
@@ -200,21 +200,23 @@ const Posts = ({ }) => {
       <h1 className='text-gray-400  font-bold pb-2 lg:pb-4  text-xl'>Recently Added Chapters</h1>
       <Link to ='/updates' className='text-md font-medium text-indigo-400'>View More</Link>
       </div>
-      <div className='lg:grid lg:grid-cols-3 lg:grid-rows-8  flex flex-col lg:-mx-20  bg-gray-800 
+      <div className='grid grid-cols-2  lg:grid-cols-3 lg:grid-rows-8  flex-col lg:-mx-20  bg-gray-800 
        md:gap-2 gap-1  my-10 
-       rounded-xl  pb-10 pl-1 place-items-center p-1 '>
+       rounded-xl  pb-10 pl-1 p-1 '>
 
            {data?.chapters.map(item=>(
-              <div key={item.id } className='flex flex-row my'>
-                  <img className='w-12 h-16  rounded-lg' src={item.novel_cover} alt="" />
-              <div className='ml-2'>
+              <div key={item.id } className='grid grid-cols-4 my '>
+                <div className=' col-start-1 place-self-end'>
+                  <img className='w-10 h-14 sm:w-12 sm:h-16   rounded-lg' src={item.novel_cover} alt="" />
+                </div>
+              <div className='ml-2 col-start-2 col-span-3'>
                 <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} >
-            <h1 className='text-sm sm:text-sm  truncate w-40 sm:w-48 xl:w-64 2xl:w-72  text-gray-400   font-bold '>
+            <h1 className='text-xs sm:text-sm line-clamp-1 text-gray-400   font-bold '>
               {item.novel_title}
             </h1>
                 </Link>
                 <Link to={`/chapter/${encodeURIComponent(item.slug)}`} >
-            <h1 className='text-sm sm:text-sm  truncate w-40 sm:w-48 xl:w-64 2xl:w-72  text-indigo-400   '>
+            <h1 className='text-xs sm:text-sm line-clamp-1  text-indigo-400   '>
               {item.title}
             </h1>
                 </Link>
@@ -222,7 +224,7 @@ const Posts = ({ }) => {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
-            <span >  {formatDistanceToNow(
+            <span className=' line-clamp-1' >  {formatDistanceToNow(
               new Date(moment.utc(item.created_at).local().format()),
               {
                 addSuffix: true,

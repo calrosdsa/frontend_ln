@@ -43,12 +43,12 @@ const NovelsChapterz = ({ location }) => {
         <PaginationFilter location={location}/>
           <div className="text-gray-600  mx-auto grid sm:grid-cols-2 gap-3">
           {novels.map(item=>(
-            <div className="flex">
-              <Link to={`/novel/${item.slug}`} >
+            <div className=" grid grid-cols-4">
+              <Link className="col-start-1 place-self-end" to={`/novel/${item.slug}`} >
               <img src={item.cover} className="h-32 w-24 rounded-lg" alt="" />
               </Link>
-              <div className="mx-2">
-                <Link to={`/novel/${item.slug}`} className=" text-base font-semibold">{item.title}</Link>
+              <div className="mx-2 col-start-2 col-span-3">
+                <Link to={`/novel/${item.slug}`} className=" line-clamp-1 text-base font-semibold">{item.title}</Link>
                 <div className='flex items-center space-x-2 -my-1'>
        <ReactStars
             value={item.average}
@@ -86,7 +86,7 @@ const NovelsChapterz = ({ location }) => {
                  </div>
             </div>
 
-            <div className="flex  ">
+            <div className="flex text-sm sm:text-base ">
               Status:
             {item.status_name === "Completed" ?(
                 <div>

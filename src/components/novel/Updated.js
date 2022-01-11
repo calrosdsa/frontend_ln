@@ -22,14 +22,15 @@ function Updated({location}) {
                 </div>
                 <Pagination current={data?.current} previous={data?.previous} pages_count={data?.pages_count}
                     next={data?.next} pageIndex={pageIndex} setPageIndex={setPageIndex} location={location}/>
-            <div className='sm:grid sm:grid-cols-2 justify-center sm:place-items-start flex flex-col place-items-center my-1'>
+            <div className='sm:grid sm:grid-cols-2 justify-center place-items-start flex flex-col my-1'>
             {data?.results.map(item=>(
-                <div className='flex space-x-2 -3 md:m my'>
-                    <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
+                <div className='grid grid-cols-4  md:m my'>
+                    <Link className='col-start-1 ' to={`/novel/${encodeURIComponent(item.novel_slug)}`}>
                     <img src={item.novel_cover} className='w-14 h-20' alt="" />
                     </Link>
-                    <div>
-                        <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} className='text-gray-200 sm:w-40 md:w-64 xl:w-full text-sm
+                    <div className='col-start-2 col-span-3 place-self-start'> 
+                        <Link to={`/novel/${encodeURIComponent(item.novel_slug)}`} 
+                        className='text-gray-200  text-sm
                          line-clamp-1'>{item.novel_title}</Link>
                         <Link to={`/chapter/${encodeURIComponent(item.slug)}`} className='text-indigo-400 sm:w-40 md:w-64 xl:w-96 text-sm
                          line-clamp-1'>{item.title}</Link>

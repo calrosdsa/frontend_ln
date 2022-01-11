@@ -9,6 +9,9 @@ import useSWR from 'swr'
 import { useHistory } from 'react-router-dom'
 
 function AdvancedFilter({location}) {
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
     const options = [
         {
             "status": "All",
@@ -16,11 +19,11 @@ function AdvancedFilter({location}) {
         },
         {
             "status": "Ongoing",
-            "id": 1
+            "id": 2
         },
         {
             "status": "Completed",
-            "id": 2
+            "id": 3
         }
     ]
     const ordering = [
@@ -93,23 +96,25 @@ function AdvancedFilter({location}) {
         }
         return value
     }
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
-    const handleClickTag = (item)=>{
+    const handleClickTag = (item,title)=>{
         const index =  `tags=${item}&`
         if(value[index]!==""||value[index]!==null||value[index]!=='null'){
             setValue(value=>[...value, `tags=${item}&`])
+            setTagValue(tagValue=>[...tagValue,title])
         }
             var myIndex = value.indexOf(index);
             if (myIndex > -1) {
                 setValue(value.filter(function(f) { return f !== index }))  
+                setTagValue(tagValue.filter(function(f){ return f !== title}))
            }
            return value
         }
-      
+    const removeTag=(tag)=>{
+        setTagValue(tagValue.filter(function(f) { return f !== tag }))  
+    }
         const cleanInput = ()=>{
             setWordEnter('')
+            
         }
         const handleFilter =()=>{
             history.push(`/filter/?${value.join('')}${selectedOption}${selectedOrdering}${min}${max}${match}`)
@@ -117,6 +122,13 @@ function AdvancedFilter({location}) {
         }
         const clearFilter = () =>{
             history.push(`/filter`)
+            setTagValue([])
+            setValue([])
+            setMin('')
+            setMatch('')
+            setMax('')
+            setSelectedOption('')
+            setSelectedOrdering('')
         }
     
         const keyboardNavigation =(e)=>{
@@ -140,7 +152,7 @@ function AdvancedFilter({location}) {
               var myIndex = value.indexOf(index);
               if (myIndex > -1) {
                   setValue(value.filter(function(f) { return f !== index }))  
-                  setTagValue(value.filter(function(f){ return f !== index}))
+                  setTagValue(tagValue.filter(function(f){ return f !== tagssuggestions[cursor].title}))
              }
               setWordEnter('')
 
@@ -150,8 +162,8 @@ function AdvancedFilter({location}) {
     return (
         <div className='bg-gray-800 pt-20 pb-100 '>
             <div className='w-full sm:w-5/6 mx-auto lg:w-3/4 xl:w-4/6 2xl:w-1/2 pt-10'>
-                <div className='flex justify-between border-b-2 border-gray-400 px-2 pb-6 md:px-4'>
-                <h1 className='text-gray-400 text-lg lg:text-2xl '>Search Novels with Advanced Filtering Function</h1>
+                <div className='flex items-center justify-between border-b-2 border-gray-400 px-2 pb-6 md:px-4'>
+                <h1 className='text-gray-400 text-base sm:text-lg lg:text-2xl '>Search Novels with Advanced Filtering Function</h1>
                 <button className='bg-indigo-500 outline-none p text-base lg:text-lg rounded-lg' 
                 onClick={()=>setShow(!show)}
                 >
@@ -182,7 +194,12 @@ function AdvancedFilter({location}) {
                 <h1>(Matched All Tags Selected)</h1>
                 </div>
             <div className='py flex flex-wrap '>
-                <h1 className='bg-gray-200   line-clamp-1 space-x-3 rounded-lg text-gray-800 '>{tagValue.join("  --   ")}</h1>
+                <div className=' flex   space-x-3 rounded-lg text-gray-800 '>{tagValue.map(item=>(
+                    <div key={item} onClick={()=>removeTag(item)} className=' bg-gray-200 px-1 flex items-center rounded-lg cursor-pointer'>
+                        <span>{item}</span>
+                        <XIcon className='h-5 w-5 text-gray-600'/>
+                    </div>
+                    ))}</div>
                 </div>
             <input 
            onKeyDown={e=>keyboardNavigation(e)}
@@ -194,8 +211,13 @@ function AdvancedFilter({location}) {
               onClick={cleanInput}/>}
               <div className='bg-gray-400 max-h-40 absolute'>
               {tagssuggestions.map((item,idx)=>(
-                  <div className={` cursor-pointer ${cursor === idx ? 'bg-gray-100 text-gray-500 w-72' : 'bg-gray-500' }`}
-                  onClick={()=>handleClickTag(item.id)}>{item.title}</div>
+                  <div className={` cursor-pointer ${cursor === idx ? 'bg-gray-100 text-gray-500 w-72' : 'bg-gray-500' }`}>
+
+                      <span onClick={()=>handleClickTag(item.id,item.title)}>
+
+                      {item.title}
+                      </span>
+                      </div>
                   ))}
             </div>
                   </div>
@@ -269,14 +291,14 @@ function AdvancedFilter({location}) {
                 </div>
             }
             {show ||
-           <div className="text-gray-600 mx-auto space-y-2 pt-1 sm:space-y-0 sm:grid sm:grid-cols-2 gap-3">
+           <div className="text-gray-600 mx-auto space-y-2 pt-1 sm:space-y-0 md:grid md:grid-cols-2 gap-3">
            {data?.novels.map(item=>(
-             <div className="flex">
-               <Link to={`/novel/${item.slug}`} >
+             <div className="grid grid-cols-4 mt-2">
+               <Link className=' place-self-end' to={`/novel/${item.slug}`} >
                <img src={item.cover} className="h-32 w-24 rounded-lg" alt="" />
                </Link>
-               <div className="mx-2">
-                 <Link to={`/novel/${item.slug}`} className=" text-base font-semibold">{item.title}</Link>
+               <div className="mx-2 col-start-2 col-span-3">
+                 <Link to={`/novel/${item.slug}`} className=" text-base line-clamp-1 font-semibold">{item.title}</Link>
                  <div className='flex items-center space-x-2 -my-1'>
         <ReactStars
              value={item.average}
@@ -305,16 +327,18 @@ function AdvancedFilter({location}) {
              </svg>
              <h1>{item.comentarios} Com.</h1>
              </div>
-                  <div className="flex ml-5">
+                  <div className="flex ml-5 text-sm sm:text-base ">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
               <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
              </svg>
-                     {moment.utc(item.updated).local().format('MMM d, HH:mm:ss')}
+             <h1 className=' line-clamp-1'>
+                     {moment.utc(item.updated).local().format('MMM d HH:mm:ss')}
+             </h1>
                   </div>
              </div>
  
-             <div className="flex  ">
+             <div className="flex text-sm sm:text-sm  ">
                Status:
              {item.status_name === "Completed" ?(
                  <div>
