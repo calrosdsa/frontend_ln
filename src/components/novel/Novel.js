@@ -86,7 +86,6 @@ import ReactStars from "react-rating-stars-component";
        Add Spoiler
        </button>
           <button
-           type='submit'
            className='mb-2 cursor-pointer md:mb-0 bg-indigo-500 md:px-6 md:py-3  py-0 h-12 text-base 
            shadow-sm font-medium tracking-wider text-white rounded-lg mx-4 w-4/6 hover:shadow-lg hover:bg-indigo-500'
            onClick={async() => {

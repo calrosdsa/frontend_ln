@@ -10,13 +10,15 @@ import {
   
   GET_RANKED,
   GET_FILTER,
-  GET_REVIEWS
+  GET_REVIEWS,
+ 
 } from './types';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 // Get Many Posts method
+
 
 export const getFilter = (query) => async (dispatch) => {
   // if (localStorage.token) {

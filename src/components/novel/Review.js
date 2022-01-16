@@ -38,16 +38,9 @@ export const fetcher = url => axios.get(url).then(res => res.data)
     
   <div className=' h-full bg-gray-900  pt-36'>
       {show &&
-         <form
+         <div
          className={` max-w-lg lg:max-w-xl z-10  fixed inset-0 mt-32 h-1/2  lg:h-3/5 mx-auto bg-gray-800 rounded-lg px-4 pt-1 border-black border ${show && '  brightness-100'} `}
-         onSubmit={async() => {
-          
-           await axios.post(`https://light-nvls.herokuapp.com/novels/postreview/${data?.slug}/`, {rating,review})
-           mutate({...data})
-           setReview('');
-           setRating(0);
-           setShow(false)
-         }} 
+       
        >
          <div className=' -mx-3  mb-6'>
            <div className="flex items-center justify-between">
@@ -96,15 +89,21 @@ export const fetcher = url => axios.get(url).then(res => res.data)
                </p>
              </div>
              <div className='-mr-1'>
-               <input
-                 type='submit'
-                 className='bg-blue-500 p xl:text-xl xl:p-2 rounded-xl xl:w-56 '
-                 value='Post Review'
-               />
+               <button
+                 onClick={async() => {
+                  await axios.post(`https://light-nvls.herokuapp.com/novels/postreview/${data?.slug}/`, {rating,review})
+                  mutate({...data})
+                  setReview('');
+                  setRating(0);
+                  setShow(false)
+                }} 
+                 className='bg-blue-500 p xl:text-xl xl:p-2 rounded-xl xl:w-56 '>
+                   Post Review'
+                 </button>
              </div>
            </div>
          </div>
-       </form>
+       </div>
 }
   <div className={`w-full bg-gray-800 h-full xl:pl-5 pt-2 sm:w-4/5 lg:w-2/3  sm:mx-auto px-3 ${show && 'filter brightness-50'}`}>
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-x-0 ">

@@ -1,4 +1,4 @@
-import { SET_NOTIFICATIOS } from "./types";
+import { SET_FONT, SET_NOTIFICATIOS, SET_SETTIGNS, SET_SIZE } from "./types";
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -21,3 +21,26 @@ export const setWebsockets = (notifications)=>async(dispatch, getState)=>{
     })
     localStorage.setItem('notifications', JSON.stringify(getState().websockets.notifications))
 }
+export const setSize  = (fontSize) =>async(dispatch,getState)=>{
+    dispatch({
+        type: SET_SIZE,
+        payload:{
+            fontSize:fontSize,
+        }
+    })
+    localStorage.setItem('fontSize', fontSize)
+    
+
+  }
+
+  export const setFont  = (fontType) =>async(dispatch,getState)=>{
+    dispatch({
+        type: SET_FONT,
+        payload:{
+            fontType:fontType,
+        }
+    })
+    localStorage.setItem('fontType', fontType)
+
+  }
+  
