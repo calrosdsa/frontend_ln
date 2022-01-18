@@ -28,6 +28,7 @@ import ReactStars from "react-rating-stars-component";
     const buttonRef = useRef()
     const [open,setOpen]=useState(false)
     const [added,setAdded]= useState(false)
+    const token = localStorage.getItem('token')
     
     const [body, setBody] = useState(''); 
     useEffect(() => {
@@ -220,14 +221,14 @@ mutate({...data})
           
          </div>
          <div className="lg:flex lg:space-x-14 hidden ">
-        {auth.user?
-             <Link to={`/chapter/${encodeURIComponent(data?.first.slug)}`} 
+        {data?.last_chapter ?
+             <Link to={`/chapter/${encodeURIComponent( data?.last_chapter.last_chapter_slug)}`} 
              className=" flex flex-col items-center w-28 lg:w-48 
              text-sm rounded-xl p px-4 justify-center bg-indigo-600">
              <p>CONTINUE READING</p>
              <p className='truncate line-clamp-1 w-32'>
                
-               {data?.last_chapter_title }
+               {data?.last_chapter.last_chapter_title}
                </p>
            </Link>
 :
@@ -240,10 +241,10 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            <button
            disabled={!auth}
            onClick={async()=>{
-            await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
-            mutate({...data})
-          }} className={`flex  justify-center items-center p h-14 w-28 text-sm rounded-xl px-6
-          bg-indigo-600`}>
+             await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
+             mutate({...data})
+            }} className={`flex  justify-center items-center p h-14 w-28 text-sm rounded-xl px-6
+            bg-indigo-600`}>
             {!auth.user? (
               <div className=' line-clamp-2'>
               <p>
@@ -268,7 +269,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            </div>
            <div className="md:flex pt-44 mt-2  sm:pt-40   lg:pt-1 lg:w-4/5  lg:mx-auto  space-y-5 md:space-y-0
             lg:justify-between md:space-x-6 lg:space-x-14 
-           mx-auto px-1 sm:px-6 ">
+            mx-auto px-1 sm:px-6 ">
 
              <div className="bg-gray-300 p mt-2  mx-auto lg:p-3 w-11/12  lg:w-2/4 relative rounded-xl">
              <Link to={(`/chapters/${encodeURIComponent(data?.slug)}`)}>
@@ -279,8 +280,8 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
                  new Date(moment.utc(data?.updated).local().format()),
                  {
                    addSuffix: true,
-                 }
-                 )}
+                  }
+                  )}
                 </h4> 
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 xl:w-20 xl:h-20 absolute
                  text-gray-600 right-6 top-9" viewBox="0 0 20 20" fill="currentColor">
