@@ -129,7 +129,7 @@ function Tags({match, location}) {
                 {novels.map(item=>(
                       <div className=" grid grid-cols-4">
                       <Link className=' col-start-1 place-self-end ' to={`/novel/${item.slug}`} >
-                      <img src={item.cover} className="h-28 w-20 rounded-lg" alt="" />
+                      <img  src={`https://res.cloudinary.com/farav/image/upload/v1/${item.cover}`} className="h-28 w-20 rounded-lg" alt="" />
                       </Link>
                       <div className="mx-2  col-span-3">
                         <Link to={`/novel/${item.slug}`} className=" text-indigo-400 line-clamp-1 text-base font-semibold">{item.title}</Link>

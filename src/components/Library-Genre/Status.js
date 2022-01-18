@@ -6,6 +6,17 @@ import Button from "@material-ui/core/Button";
 
 import { appendQuery,removeQuery } from "../../utils/utils";
 
+const status = [
+  {
+      "status": "Ongoing",
+      "id": 2
+  },
+  {
+      "status": "Completed",
+      "id": 3
+  }
+]
+
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(1),
@@ -17,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Status = ({ location }) => {
-  const status = useSelector(state => state.filter.status);
+  
   const status_ = useSelector(state => state.filter.status_);
 
   const classes = useStyles();

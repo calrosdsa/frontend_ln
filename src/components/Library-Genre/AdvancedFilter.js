@@ -7,6 +7,7 @@ import { fetcher } from '../novel/Review'
 import {XIcon} from '@heroicons/react/solid'
 import useSWR from 'swr'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios';
 
 function AdvancedFilter({location}) {
     useEffect(()=>{
@@ -64,6 +65,7 @@ function AdvancedFilter({location}) {
         revalidateOnFocus: false,
         revalidateOnReconnect: false})
         const history = useHistory()
+        const [category, setCategory] = useState([])
         const [value,setValue] = useState([])
         const [show,setShow] = useState(true)
         const [wordEnter,setWordEnter] = useState('')
@@ -75,6 +77,11 @@ function AdvancedFilter({location}) {
     const [max,setMax] = useState('')
     const [match,setMatch] = useState('')
 
+
+    useEffect(async()=>{
+        const res = await axios.get('https://light-nvls.herokuapp.com/categories/')
+        setCategory(res.data)
+    },[setCategory])
     
     
     const tagssuggestions =useMemo(()=>{
@@ -178,8 +185,8 @@ function AdvancedFilter({location}) {
                 <h1>(Matches ALL categories selected)</h1>
                 </div>
             <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  pb-10'>
-            {data?.category.map(item=>(
-                <div className=' cursor-pointer'
+            {category.map(item=>(
+                <div key={item.id} className=' cursor-pointer'
                 >
                        <span onClick={()=>handleClick(item.id)} className={`bg-gray-200 w-44 p line-clamp-1 my-1
                         text-gray-700 ${value.includes(`category=${item.id}&`)  && 'bg-indigo-500'} `}>
@@ -211,7 +218,7 @@ function AdvancedFilter({location}) {
               onClick={cleanInput}/>}
               <div className='bg-gray-400 max-h-40 absolute'>
               {tagssuggestions.map((item,idx)=>(
-                  <div className={` cursor-pointer ${cursor === idx ? 'bg-gray-100 text-gray-500 w-72' : 'bg-gray-500' }`}>
+                  <div key={idx} className={` cursor-pointer ${cursor === idx ? 'bg-gray-100 text-gray-500 w-72' : 'bg-gray-500' }`}>
 
                       <span onClick={()=>handleClickTag(item.id,item.title)}>
 

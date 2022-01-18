@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import useSwr from 'swr'
+import { fetcher } from "../novel/Review";
 import { appendQuery,removeQuery } from "../../utils/utils";
 
 const useStyles = makeStyles(theme => ({
@@ -17,8 +18,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const  Category = ({ location }) => {
-  const category = useSelector(state => state.filter.category);
   const category_ = useSelector(state => state.filter.category_);
+  const {data } = useSwr('http://127.0.0.1:8000/categories/', fetcher)
 
   const classes = useStyles();
 
@@ -35,7 +36,7 @@ const  Category = ({ location }) => {
       >
         All
       </Button>
-            {category.map(item=>(
+            {data?.map(item=>(
                 <div key={item.id}>
                     <Button
         component={Link}

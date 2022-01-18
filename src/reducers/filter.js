@@ -7,12 +7,12 @@ import { GET_FILTER } from "../actions/types";
     current: null,
     next: null,
     previous: null,
-    category: [],
     status_: null,
     category_: null,
-    status: [],
     novels: [],
-    
+    tag: [], 
+    tags:[],
+    title: null,
   };
   
   export default (state = initialState, action) => {

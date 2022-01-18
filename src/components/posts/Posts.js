@@ -64,7 +64,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
            <div className='pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-16 sm:w-12 rounded-lg'  src={`https://res.cloudinary.com/farav/image/upload/v1/${item.cover}`} alt="" />
          </div>
          <div className='col-start-2 col-span-3'>
        <h1 className='text-xs sm:text-sm line-clamp-1  text-gray-400   font-bold '>
@@ -101,7 +101,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
          <div className='pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12 rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-16 sm:w-12 rounded-lg'  src={`https://res.cloudinary.com/farav/image/upload/v1/${item.cover}`} alt="" />
          </div>
          <div className='col-start-2 col-span-3 mt-2 sm:mt-1'>
        <h1 className='text-xs sm:text-sm line-clamp-1  text-gray-400   font-bold '>
@@ -136,7 +136,7 @@ const Posts = ({ }) => {
 
          <div key={item.id} className='grid grid-cols-4 my'>
          <div className=' pr-1 col-start-1 place-self-end'>
-             <img className='w-11 h-16 sm:w-12  rounded-lg' src={item.cover} alt="" />
+             <img className='w-11 h-16 sm:w-12  rounded-lg' src={`https://res.cloudinary.com/farav/image/upload/v1/${item.cover}`} alt="" />
          </div>
          <div className='col-start-2 col-span-3'>
        <h1 className='text-xs sm:text-sm  truncate text-gray-400   font-bold '>

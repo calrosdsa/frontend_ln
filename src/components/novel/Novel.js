@@ -30,7 +30,6 @@ import ReactStars from "react-rating-stars-component";
     const [added,setAdded]= useState(false)
     
     const [body, setBody] = useState(''); 
-    const avg = parseFloat(data?.average).toFixed(1)
     useEffect(() => {
       if(!data) return;
       if(!auth.user) return;
@@ -135,11 +134,11 @@ import ReactStars from "react-rating-stars-component";
          <div className=" mb-1 mt-1 lg:flex gap-x-2  lg:divide-x-2 grid grid-cols-2 ">
         {auth.user?
            
-           <Link to={`/chapter/${encodeURIComponent(data?.last_chapter.slug.includes('chapter')? data?.last_chapter.slug:data?.first.slug)}`} className="h-16 lg:hidden flex flex-col items-center w-full
+           <Link to={`/chapter/${encodeURIComponent(data?.last_chapter_slug.includes('chapter')? data?.last_chapter_slug:data?.first.slug)}`} className="h-16 lg:hidden flex flex-col items-center w-full
            text-sm rounded-xl p  justify-center bg-indigo-600">
          <p>CONTINUE READING</p>
                
-        <p className='truncate line-clamp-1 w-32'>{data?.last_chapter.title.includes('Chapter')? data?.last_chapter.title:data?.first.title}</p>
+        <p className='truncate line-clamp-1 w-32'>{data?.last_chapter.includes('Chapter')? data?.last_chapter:data?.first.title}</p>
 </Link>
 :        
     
@@ -227,13 +226,13 @@ mutate({...data})
          </div>
          <div className="lg:flex lg:space-x-14 hidden ">
         {auth.user?
-             <Link to={`/chapter/${encodeURIComponent(data?.last_chapter.slug.includes('chapter')? data?.last_chapter.slug:data?.first.slug)}`} 
+             <Link to={`/chapter/${encodeURIComponent(data?.last_chapter_slug.includes('chapter')? data?.last_chapter_slug:data?.first.slug)}`} 
              className=" flex flex-col items-center w-28 lg:w-48 
              text-sm rounded-xl p px-4 justify-center bg-indigo-600">
              <p>CONTINUE READING</p>
              <p className='truncate line-clamp-1 w-32'>
                
-               {data?.last_chapter.title.includes('Chapter')? data?.last_chapter.title:data?.first.title}
+               {data?.last_chapter.includes('Chapter')? data?.last_chapter:data?.first.title}
                </p>
            </Link>
 :
