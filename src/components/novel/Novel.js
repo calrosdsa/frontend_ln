@@ -222,13 +222,13 @@ mutate({...data})
          </div>
          <div className="lg:flex lg:space-x-14 hidden ">
         {data?.last_chapter ?
-             <Link to={`/chapter/${encodeURIComponent( data?.last_chapter.last_chapter_slug)}`} 
+             <Link to={`/chapter/${encodeURIComponent( data?.last_chapter.last_chapter_slug.includes('chapter')?data?.last_chapter.last_chapter_slug:data?.first.slug)}`} 
              className=" flex flex-col items-center w-28 lg:w-48 
              text-sm rounded-xl p px-4 justify-center bg-indigo-600">
              <p>CONTINUE READING</p>
              <p className='truncate line-clamp-1 w-32'>
                
-               {data?.last_chapter.last_chapter_title}
+               {data?.last_chapter.last_chapter_title.includes('Chapter')? data?.last_chapter.last_chapter_title:data?.first.title }
                </p>
            </Link>
 :
