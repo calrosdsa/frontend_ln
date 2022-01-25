@@ -97,15 +97,16 @@ import ReactStars from "react-rating-stars-component";
        </div>
       </div>
       }   
-
+    
+    {data?
  
-      <div className={`bg-gray-900 `}>
+ <div className={`bg-gray-900 `}>
            <div className={` w-full lg:w-150 px-3 sm:px-5  mx-auto ${open && ' filter brightness-50'}`}>
-       <div className=" justify-center - relative z-0 items-center lg:grid lg:grid-cols-3 xl:grid-cols-5  bg-gray-900 h-screen">
+             <div className=" justify-center - relative z-0 items-center lg:grid lg:grid-cols-3 xl:grid-cols-5  bg-gray-900 h-screen">
 
          <img className=" object-cover h-99 w-screen hidden lg:inline-flex absolute
           filter brightness-25 blur-xl p-2  border-8 
-           justify-center" src={data?.cover} alt="" />
+          justify-center" src={data?.cover} alt="" />
 
          <img className=" xl:rounded-lg h-100 object-contain  sm:w-2/3 lg:w-full mx-auto
           lg:col-start-1 xl:col-start-2  z-0 filter  relative 
@@ -154,8 +155,8 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
 <button 
 disabled={!auth.user}
 onClick={async()=>{
-await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
-mutate({...data})
+  await axios.post(`https://light-nvls.herokuapp.com/novels/favorites-products/update/${data?.id}/`)
+  mutate({...data})
 }} className="flex  justify-center items-center lg:hidden text-sm rounded-xl  bg-indigo-600">
      {!auth.user? (
               <div className=' line-clamp-2'>
@@ -199,7 +200,7 @@ mutate({...data})
            <h1 className="text-base lg:ml-5 text-gray-400 font-semibold">BookMarket:</h1>
            <div className="flex lg:ml-5 items-center">
            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-           <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+             <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
            </svg>
            <h1 className="text-2xl font-bold lg:ml-2 text-gray-400" >{data?.book_marked.length}</h1>
            </div>
@@ -330,7 +331,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
            </div>
        
        <div className={`flex flex-col relative  mt-24 gap-y-3 lg:w-4/5 lg:mx-auto  ${open&& ''} `}>
-           <div className=" justify-between items-center flex w-full sm:w-5/6 mx-auto">
+         <div className=" justify-between items-center flex w-full sm:w-5/6 mx-auto">
          <h2 className='text-base sm:text-xl lg:text-3xl  font-bold'>User Comments</h2>
          <button ref={buttonRef}  onClick={()=>commentClick()}
           className=" bg-gradient-to-l from-blue-300  to-blue-400 text-base font-semibold hover:scale-105
@@ -345,7 +346,7 @@ text-sm rounded-xl p px-4 justify-center bg-indigo-600">
 Posting insults, swearing or links in the comments is strictly prohibited.
 The responsibility for the content in the comments belongs entirely to the user and certainly the LNP platform cannot be held responsible.</p>
          {data?.comments.map((comment) => (
-              <div>
+           <div>
                 <Comments data={data} mutate={mutate} comment={comment}/>
               </div>   
              ))
@@ -354,16 +355,20 @@ The responsibility for the content in the comments belongs entirely to the user 
        </div>
          </div>
    </div>
+   :
+   <div className='bg-gray-900 h-screen'>...loading</div>
+    
+    }
      </Fragment>
-    )
+     )
 }
 
-  Novel.propTypes = {
-      auth: PropTypes.object.isRequired,
+Novel.propTypes = {
+  auth: PropTypes.object.isRequired,
     };
-  
-  const mapStateToProps = (state) => ({
-    auth: state.auth,
-  });
-  
-  export default connect(mapStateToProps)(Novel);        
+    
+    const mapStateToProps = (state) => ({
+      auth: state.auth,
+    });
+    
+    export default connect(mapStateToProps)(Novel);        

@@ -47,7 +47,7 @@ const PrivateRoute = ({
               <div className=' pb-20 w-full sm:w-5/6 lg:w-3/4 xl:w-4/6  mx-auto gap-x-2 '>
               <Link
               to='/'
-              className='flex items-center w-30 md:w-48 mt-10 justify-center mb-2 md:mb-0 bg-indigo-600 md:px-6 
+              className='flex items-center w-30 md:w-48 mt-16 justify-center mb-2 md:mb-0 bg-indigo-600 md:px-6 
               md:py-3 px-10 h-12 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg
                hover:bg-indigo-500'
               >
@@ -68,7 +68,7 @@ const PrivateRoute = ({
               </Link>
               <div className="bg-gray-900  mx-2">
               <div className="space-x-4 flex py-10 px-3">
-              <img src={data?.avatar} className="h-20 w-20" alt="" />
+              <img src={data?.avatar} className="h-24 rounded-lg w-20" alt="" />
               <div>
               
               <h1>{data?.name}</h1>

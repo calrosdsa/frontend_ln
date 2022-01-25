@@ -105,6 +105,7 @@ export const fetcher = url => axios.get(url).then(res => res.data)
          </div>
        </div>
 }
+{data?
   <div className={`w-full bg-gray-800 h-full xl:pl-5 pt-2 sm:w-4/5 lg:w-2/3  sm:mx-auto px-3 ${show && 'filter brightness-50'}`}>
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-x-0 ">
     </div>
@@ -176,18 +177,18 @@ value={item?.rating}
 <div className="flex justify-between mx-2  border-gray-700 border-b-2  pb-3">
 
 <p className="text-xs text-gray-400  lg:text-sm mr-10">Posted {' '} {formatDistanceToNow(
-new Date(moment.utc(item?.date_added).local().format()),
-{
- addSuffix: true,
-}
-)}</p>
+  new Date(moment.utc(item?.date_added).local().format()),
+  {
+    addSuffix: true,
+  }
+  )}</p>
  <div className="flex space-x-2 mr-7 items-center  space-x-4">
      <div className="flex space-x-2 items-center">
- <svg onClick={async()=>{
-  
-   await axios.put(`https://light-nvls.herokuapp.com/novels/putreview/${item.id}/`)
-   mutate({...data})
- }} xmlns="http://www.w3.org/2000/svg" class="h-4 lg:h-5 lg:w-5 w-4 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+       <svg onClick={async()=>{
+         
+         await axios.put(`https://light-nvls.herokuapp.com/novels/putreview/${item.id}/`)
+         mutate({...data})
+        }} xmlns="http://www.w3.org/2000/svg" class="h-4 lg:h-5 lg:w-5 w-4 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
  <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
  </svg>
  <p className="text-sm xl:text-base">{item?.like}</p>
@@ -197,11 +198,15 @@ new Date(moment.utc(item?.date_added).local().format()),
 </div>
 ))}
 </div>
-</div>
-    ) 
+:
+<div className='bg-gray-900 h-screen'>...loading</div>
 
-    
-  }
+}
+</div>
+) 
+
+
+}
 
 
 export default Review;      
