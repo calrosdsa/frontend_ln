@@ -133,18 +133,23 @@ import ReactStars from "react-rating-stars-component";
          </div>
 
          <div className=" mb-1 mt-1 lg:flex gap-x-2  lg:divide-x-2 grid grid-cols-2 ">
-        {auth.user?
-           
-      <div></div>
-:        
-    
-<Link to={`/chapter/${encodeURIComponent(data?.first.slug)}`} className="h-16 lg:hidden flex flex-col items-center w-full
-text-sm rounded-xl p  justify-center bg-indigo-600">
-<p className='font-semibold'>Read</p>
-<p className='truncate line-clamp-1 w-32 font-semibold'>{data?.first.title} </p>
+         {data?.last_chapter ?
+             <Link to={`/chapter/${encodeURIComponent( data?.last_chapter.last_chapter_slug.includes('chapter')?data?.last_chapter.last_chapter_slug:data?.first.slug)}`} 
+             className=" flex flex-col items-center 
+             text-sm rounded-xl p px-4 justify-center bg-indigo-600">
+             <p>CONTINUE READING</p>
+             <p className='truncate line-clamp-1 w-32'>
+               
+               {data?.last_chapter.last_chapter_title.includes('Chapter')? data?.last_chapter.last_chapter_title:data?.first.title }
+               </p>
+           </Link>
+:
+<Link to={`/chapter/${encodeURIComponent(data?.first.slug)}`} className=" flex flex-col items-center 
+text-sm rounded-xl p px-4 justify-center bg-indigo-600">
+<p>Read</p>
+<p className='truncate line-clamp-1 w-32'>{data?.first.title} </p>
 </Link>
-   
-  }
+}
 
 <button 
 disabled={!auth.user}
