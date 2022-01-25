@@ -20,7 +20,7 @@ const App = () => {
     if (token) {
       setAuthToken(token);
     }
-    setTimeout(() => {
+    setTimeout(() => {  
       store.dispatch(loadUser());
     }, 1000);
     axios.defaults.xsrfCookieName = 'csrftoken';
