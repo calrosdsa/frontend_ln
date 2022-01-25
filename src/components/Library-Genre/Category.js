@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 const  Category = ({ location }) => {
   const category_ = useSelector(state => state.filter.category_);
-  const {data } = useSwr('http://127.0.0.1:8000/categories/', fetcher)
+  const {data } = useSwr('https://light-nvls.herokuapp.com/categories/', fetcher)
 
   const classes = useStyles();
 

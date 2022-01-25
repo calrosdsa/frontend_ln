@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { useHistory } from 'react-router-dom'
-import React,{useState,useRef,useEffect,Fragment} from 'react'
+import React,{useState,useRef,useEffect,Fragment,Suspense} from 'react'
 import { fetcher } from './Review'
 import { setFont, setSize} from '../../actions/webSockets'
 import { useDispatch,useSelector } from 'react-redux'
@@ -80,11 +80,13 @@ const Chapter =({match})=>{
   
   
   return(
+    <Suspense fallback={<h1>...Loading</h1>}>
+
     <div className=' grid'>
     {show&&
         <div className='bg-gray-900 sm:w-2-4 lg:w-1/3  fixed w-11/12  inset-x-0 mx-auto top-1/2  rounded-xl p-1'  >
         
-             <div className=' lg:w-3/4 mx-auto flex justify-center space-x-5 p-1 '>
+          <div className=' lg:w-3/4 mx-auto flex justify-center space-x-5 p-1 '>
 <button disabled={data?.previous === null} onClick={()=>data?.previous=== null || history.push(data?.previous.slug) } 
 className='text-xl bg-indigo-500 p ring-0 outline-none items-center rounded-xl flex'>
 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
@@ -109,15 +111,15 @@ className='text-xl bg-indigo-500 p ring-0 outline-none items-center rounded-xl f
 </div>
     <div className='flex fon flex-wrap space-x-2  justify-center'>
     {FontType.map((item,i)=>(
-     <Item dispatch={dispatch} fontsize={fonttype} item={item.status} setSize={setFont} i={i}/>
-     
+      <Item dispatch={dispatch} fontsize={fonttype} item={item.status} setSize={setFont} i={i}/>
+      
       ))}
     </div>
      <div className='flex text-xl  items-center flex-wrap space-x-2 mt-2 justify-center '>
        <h1 >A-</h1>
     {FontSize.map((item,i)=>(
      <Item2 dispatch={dispatch} fontsize={fontsize} item={item} setSize={setSize} i={i}/>
-      ))}
+     ))}
       <h1>A+</h1>
     </div>
         </div>
@@ -169,6 +171,7 @@ className='h-14 cursor-pointer text-indigo-400 x w-14 hidden md:flex' fill="none
           </div>
 
          </div>
+         </Suspense>
 )
 }
 
