@@ -11,29 +11,28 @@ import Comments from './Comments'
 import ReactStars from "react-rating-stars-component";
     const Novel =( { auth
     ,match})=>{
-      useEffect(() => {
-        window.scrollTo(0, 0)
-      }, [])
+     
       function numFormatter(num) {
         if(num > 999 && num < 1000000){
-            return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+          return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
         }else if(num > 1000000){
-            return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+          return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
         }else if(num < 900){
-            return num; // if value < 1000, nothing to do
+          return num; // if value < 1000, nothing to do
         }
-    }
-
-    const {data,mutate}  = useSWR(`https://light-nvls.herokuapp.com/novels/detail/${match.params.slug}/`, fetcher )
-    const buttonRef = useRef()
-    const [open,setOpen]=useState(false)
-    const [added,setAdded]= useState(false)
-    const token = localStorage.getItem('token')
-    
-    const [body, setBody] = useState(''); 
-    useEffect(() => {
-      if(!data) return;
-      if(!auth.user) return;
+      }
+      
+      const {data,mutate}  = useSWR(`https://light-nvls.herokuapp.com/novels/detail/${match.params.slug}/`, fetcher )
+      const buttonRef = useRef()
+      const [open,setOpen]=useState(false)
+      const [added,setAdded]= useState(false)
+      const token = localStorage.getItem('token')
+      
+      const [body, setBody] = useState(''); 
+      useEffect(() => {
+        window.scrollTo(0, 0)
+        if(!data) return;
+        if(!auth.user) return;
       if (data.book_marked.includes(auth.user.pk)) {
         setAdded(true);
     } else {

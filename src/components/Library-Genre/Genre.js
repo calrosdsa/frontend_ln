@@ -25,13 +25,11 @@ const NovelsChapterz = ({ location }) => {
   const dispatch = useDispatch();
 
 
-  useEffect(()=>{
-    window.scrollTo(0,0)
-  },[])
-
+  
   
   useEffect(()=>(
-     dispatch(getFilter(location.search))
+    window.scrollTo(0,0),
+    dispatch(getFilter(location.search))
      ),[getFilter,location.search])
      
   return (

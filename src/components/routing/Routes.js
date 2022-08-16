@@ -21,7 +21,7 @@ import Updated from '../novel/Updated';
 import AdvancedFilter from '../Library-Genre/AdvancedFilter';
 import CommentUser from '../profile/CommentUser';
 import ReviewUser from '../profile/ReviewUser';
-const Routes = () => {
+const Routes = () => {  
   return (
     <section className=''>
       <Switch>

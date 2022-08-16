@@ -31,7 +31,9 @@ const ProfileForm = ({
       ...formData,
       [e.target.name]:
       e.target.name === 'avatar' ? e.target.files[0] : e.target.value,
+
     });
+
   }
   
   const config = {
